@@ -23,7 +23,7 @@ load("@rules_pcl//:bzl/pcl-1.9.1_repositories.bzl", "pcl_repositories")
 pcl_repositories()
 ```
 
-In your top-level BUILD.bzel file:
+In your top-level BUILD.bazel file:
 
 ```
 load("@rules_pcl//:bzl/pcl.bzl", "pcl_config")
