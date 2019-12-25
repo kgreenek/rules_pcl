@@ -52,7 +52,7 @@ def _gen_pcl_config_impl(ctx):
             ("PCL_ONLY_CORE_POINT_TYPES", ctx.attr.no_precompile),
         )
     )
-    # None of PCL's external dependencies are supported yet.
+    # NOTE: Most of PCL's external dependencies are not supported yet.
     substitutions.update(
         _cmakedefine_substitutions(
             ("HAVE_TBB 1", False),
@@ -64,7 +64,7 @@ def _gen_pcl_config_impl(ctx):
             ("HAVE_FZAPI 1", False),
             ("HAVE_ENSENSO 1", False),
             ("HAVE_DAVIDSDK 1", False),
-            ("HAVE_PNG", False),
+            ("HAVE_PNG", True),
         )
     )
     # SSE macros.

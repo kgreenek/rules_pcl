@@ -1,3 +1,8 @@
+# Description:
+#   A Massively Spiffy Yet Delicately Unobtrusive Compression Library.
+
+licenses(["notice"])  # BSD 3-Clause
+
 load("@rules_pcl//bzl:pcl.bzl", "pcl_library")
 
 exports_files(["pcl_config.h.in"])
@@ -124,6 +129,7 @@ pcl_library(
         "@boost//:tuple",
         "@boost//:utility",
         "@boost//:version",
+        "@org_libpng_libpng//:libpng",
     ],
 )
 
