@@ -402,5 +402,20 @@ pcl_library(
         ":octree",
         # TODO flann. Seems to work anyway?
         "@boost//:smart_ptr",
+        "@eigen//:eigen",
+    ],
+)
+
+pcl_library(
+    name = "tracking",
+    deps = [
+        ":common",
+        ":filters",
+        ":kdtree",
+        ":octree",
+        ":search",
+        "@boost//:random",
+        "@boost//:smart_ptr",
+        "@eigen//:eigen",
     ],
 )
