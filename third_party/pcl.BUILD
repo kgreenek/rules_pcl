@@ -306,6 +306,55 @@ pcl_library(
     ],
 )
 
+SURFACE_ON_NURBS_SRCS = [
+    "surface/src/3rdparty/opennurbs/**",
+    "surface/src/on_nurbs/**",
+]
+SURFACE_ON_NURBS_HDRS = [
+    "surface/include/pcl/surface/3rdparty/opennurbs",
+    "surface/include/pcl/surface/on_nurbs",
+]
+
+SURFACE_QHULL_SRCS = [
+    "surface/include/pcl/surface/impl/concave_hull.hpp",
+    "surface/include/pcl/surface/impl/convex_hull.hpp",
+    "surface/src/concave_hull.cpp",
+    "surface/src/convex_hull.cpp",
+]
+SURFACE_QHULL_HDRS = [
+    "surface/include/pcl/surface/concave_hull.h",
+    "surface/include/pcl/surface/convex_hull.h",
+    "surface/include/pcl/surface/qhull.h",
+]
+
+SURFACE_VTK_SRCS = ["surface/src/vtk_smoothing/**"]
+SURFACE_VTK_HDRS = ["surface/include/pcl/surface/vtk_smoothing/**"]
+
+pcl_library(
+    name = "surface",
+    exclude_srcs =
+        SURFACE_ON_NURBS_SRCS +
+        SURFACE_QHULL_SRCS +
+        SURFACE_VTK_SRCS,
+    exclude_hdrs =
+        SURFACE_ON_NURBS_HDRS +
+        SURFACE_QHULL_HDRS +
+        SURFACE_VTK_HDRS,
+    deps = [
+        ":common",
+        ":kdtree",
+        ":octree",
+        ":search",
+        "@boost//:bind",
+        "@boost//:dynamic_bitset",
+        "@boost//:function",
+        "@boost//:random",
+        "@boost//:smart_ptr",
+        "@boost//:unordered",
+        "@eigen//:eigen",
+    ],
+)
+
 pcl_library(
     name = "search",
     deps = [
