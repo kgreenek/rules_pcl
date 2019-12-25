@@ -1,4 +1,4 @@
-load("@rules_pcl//:bzl/pcl.bzl", "pcl_library")
+load("@rules_pcl//bzl:pcl.bzl", "pcl_library")
 
 exports_files(["pcl_config.h.in"])
 

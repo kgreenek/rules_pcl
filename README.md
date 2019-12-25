@@ -1,6 +1,6 @@
 # rules_pcl
 
-Rules for building PCL with bazel.
+Rules for building [PCL](https://github.com/PointCloudLibrary/pcl) with bazel.
 
 
 ## How to use
@@ -17,9 +17,11 @@ http_archive(
     strip_prefix = "rules_pcl-e693a85a21972616408c1fb2b350f39058ab9181",
 )
 
-load("@rules_pcl//:bzl/pcl_deps.bzl", "pcl_deps")
+load("@rules_pcl//bzl:pcl_deps.bzl", "pcl_deps")
 pcl_deps()
-load("@rules_pcl//:bzl/pcl-1.9.1_repositories.bzl", "pcl_repositories")
+
+# NOTE: This must be loaded after the call to pcl_deps().
+load("@rules_pcl//bzl:pcl_repositories.bzl", "pcl_repositories")
 pcl_repositories()
 ```
 
@@ -43,4 +45,4 @@ cc_binary(
 )
 ```
 
-Right now only a subset of libraries are supported.
+Right now only a subset of libraries are supported. For supported libraries, see `//bzl/pcl.bzl`.
