@@ -307,6 +307,33 @@ pcl_library(
 )
 
 pcl_library(
+    name = "segmentation",
+    deps = [
+        ":common",
+        ":geometry",
+        ":kdtree",
+        ":features",
+        ":filters",
+        ":ml",
+        ":octree",
+        ":sample_consensus",
+        ":search",
+        "@boost//:bimap",
+        "@boost//:bind",
+        "@boost//:concept",
+        "@boost//:function",
+        "@boost//:graph",
+        "@boost//:multi_array",
+        "@boost//:property_map",
+        "@boost//:ptr_container",
+        "@boost//:smart_ptr",
+        "@boost//:tuple",
+        "@boost//:version",
+        "@eigen//:eigen",
+    ],
+)
+
+pcl_library(
     name = "stereo",
     deps = [
         ":common",
