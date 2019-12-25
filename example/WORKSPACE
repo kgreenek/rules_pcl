@@ -1,0 +1,11 @@
+workspace(name = "rules_pcl_example")
+
+local_repository(
+    name = "rules_pcl",
+    path = "..",
+)
+
+load("@rules_pcl//:bzl/pcl_deps.bzl", "pcl_deps")
+pcl_deps()
+load("@rules_pcl//:bzl/pcl-1.9.1_repositories.bzl", "pcl_repositories")
+pcl_repositories()
