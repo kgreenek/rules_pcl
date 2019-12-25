@@ -43,4 +43,4 @@ cc_binary(
 )
 ```
 
-Right now only the PCL common library is supported.
+Right now only a subset of libraries are supported.
