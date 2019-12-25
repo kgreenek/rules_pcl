@@ -125,7 +125,10 @@ def pcl_library(name, **kwargs):
             "{}/src/**/*.cpp".format(name),
             "{}/include/**/*.hpp".format(name),
         ], exclude = exclude_srcs),
-        hdrs = native.glob(["{}/include/**/*.h".format(name)], exclude=exclude_hdrs),
+        hdrs = native.glob([
+            "{}/include/**/*.h".format(name),
+            "{}/include/**/*.hh".format(name),
+        ], exclude=exclude_hdrs),
         includes = ["{}/include".format(name)],
         visibility = ["//visibility:public"],
         **kwargs

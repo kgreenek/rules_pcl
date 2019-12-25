@@ -83,6 +83,15 @@ pcl_library(
         "@boost//:smart_ptr",
         "@boost//:type_traits",
         "@boost//:version",
+        "@eigen//:eigen",
+    ],
+)
+
+pcl_library(
+    name = "ml",
+    deps = [
+        ":common",
+        "@eigen//:eigen",
     ],
 )
 
@@ -235,6 +244,51 @@ pcl_library(
         ":common",
         "@boost//:bind",
         "@boost//:smart_ptr",
+        "@eigen//:eigen",
+    ],
+)
+
+pcl_library(
+    name = "recognition",
+    deps = [
+        ":common",
+        ":features",
+        ":io",
+        ":ml",
+        ":registration",
+        ":search",
+        "@boost//:algorithm",
+        "@boost//:bind",
+        "@boost//:filesystem",
+        "@boost//:graph",
+        "@boost//:random",
+        "@boost//:smart_ptr",
+        "@boost//:tuple",
+        "@boost//:unordered",
+        "@eigen//:eigen",
+    ],
+)
+
+pcl_library(
+    name = "registration",
+    exclude_srcs = ["registration/src/pairwise_graph_registration.cpp"],
+    deps = [
+        ":common",
+        ":features",
+        ":filters",
+        ":kdtree",
+        ":octree",
+        ":sample_consensus",
+        ":search",
+        "@boost//:accumulators",
+        "@boost//:bind",
+        "@boost//:core",
+        "@boost//:function",
+        "@boost//:graph",
+        "@boost//:property_map",
+        "@boost//:smart_ptr",
+        "@boost//:tuple",
+        "@boost//:unordered",
         "@eigen//:eigen",
     ],
 )
