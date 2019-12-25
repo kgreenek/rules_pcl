@@ -80,33 +80,94 @@ pcl_library(
 # dependencies the user has enabled via the call to pcl_config. Alternatively, we may be able to
 # break this out into a bunch of individual targets that can be selectively created / enabled in the
 # pcl_config macro.
+
+# Depends on David SDK and VTK.
+IO_DAVIDSDK_SRCS = ["io/src/davidsdk_grabber.cpp"]
+IO_DAVIDSDK_HDRS = ["io/include/pcl/io/davidsdk_grabber.h"]
+
+IO_DEPTH_SENSE_SRCS = [
+    "io/src/depth_sense/**",
+    "io/src/depth_sense_grabber.cpp",
+]
+IO_DEPTH_SENSE_HDRS = [
+    "io/include/pcl/io/depth_sense/**",
+    "io/include/pcl/io/depth_sense_grabber.h",
+]
+
+# NOTE: These only depend on libusb-1.0.
+IO_DINAST_SRCS = ["io/src/dinast_grabber.cpp"]
+IO_DINAST_HDRS = ["io/include/pcl/io/dinast_grabber.h"]
+
+IO_ENSENSO_SRCS = ["io/src/ensenso_grabber.cpp"]
+IO_ENSENSO_HDRS = ["io/include/pcl/io/ensenso_grabber.h"]
+
+IO_FZAPI_SRCS = ["io/src/fotonic_grabber.cpp"]
+IO_FZAPI_HDRS = ["io/include/pcl/io/fotonic_grabber.h"]
+
+IO_OPENNI_SRCS = [
+    "io/src/oni_grabber.cpp",
+    "io/src/openni_camera/**",
+    "io/src/openni_grabber.cpp",
+]
+IO_OPENNI_HDRS = [
+    "io/include/pcl/io/oni_grabber.h",
+    "io/include/pcl/io/openni_camera/**",
+    "io/include/pcl/io/openni_grabber.h",
+]
+
+IO_OPENNI2_SRCS = [
+    "io/src/openni2/**",
+    "io/src/openni2_grabber.cpp",
+]
+IO_OPENNI2_HDRS = [
+    "io/include/pcl/io/openni2/**",
+    "io/include/pcl/io/openni2_grabber.h",
+]
+
+IO_REAL_SENSE_SRCS = [
+    "io/src/real_sense/**",
+    "io/src/real_sense_grabber.cpp",
+]
+IO_REAL_SENSE_HDRS = [
+    "io/include/pcl/io/depth_sense/**",
+    "io/include/pcl/io/depth_sense_grabber.h",
+]
+
+IO_VTK_SRCS = [
+    "io/src/png_io.cpp",
+    "io/src/vtk_lib_io.cpp",
+]
+IO_VTK_HDRS = [
+    "io/include/pcl/io/impl/vtk_lib_io.hpp",
+    "io/include/pcl/io/png_io.h",
+    "io/include/pcl/io/vtk_lib_io.h",
+]
+
 pcl_library(
     name = "io",
-    exclude_srcs = [
-        "io/src/davidsdk_grabber.cpp",
-        "io/src/dinast_grabber.cpp",
-        "io/src/depth_sense_grabber*.cpp",
-        "io/src/depth_sense/**",
-        "io/src/ensenso_grabber.cpp",
-        "io/src/openni2/**",
-        "io/src/png_io.cpp",
-        "io/src/real_sense_grabber.cpp",
-        "io/src/real_sense/**",
-        "io/src/vtk_lib_io.cpp",
-    ],
-    exclude_hdrs = [
-        "io/include/pcl/io/davidsdk_grabber.h",
-        "io/include/pcl/io/dinast_grabber.h",
-        "io/include/pcl/io/depth_sense/**",
-        "io/include/pcl/io/ensenso_grabber.h",
-        "io/include/pcl/io/openni2/**",
-        "io/include/pcl/io/real_sense/**",
-        "io/include/pcl/io/vtk_lib_io.h",
-    ],
+    exclude_srcs =
+        IO_DAVIDSDK_SRCS +
+        IO_DEPTH_SENSE_SRCS +
+        IO_DINAST_SRCS +
+        IO_ENSENSO_SRCS +
+        IO_FZAPI_SRCS +
+        IO_OPENNI_SRCS +
+        IO_OPENNI2_SRCS +
+        IO_REAL_SENSE_SRCS +
+        IO_VTK_SRCS,
+    exclude_hdrs =
+        IO_DAVIDSDK_HDRS +
+        IO_DEPTH_SENSE_HDRS +
+        IO_DINAST_HDRS +
+        IO_ENSENSO_HDRS +
+        IO_FZAPI_HDRS +
+        IO_OPENNI_HDRS +
+        IO_OPENNI2_HDRS +
+        IO_REAL_SENSE_HDRS +
+        IO_VTK_HDRS,
     deps = [
         ":common",
         ":octree",
-        # TODO support OPT_DEPS
         "@boost//:algorithm",
         "@boost//:asio",
         "@boost//:bind",
