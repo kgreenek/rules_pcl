@@ -306,6 +306,18 @@ pcl_library(
     ],
 )
 
+pcl_library(
+    name = "stereo",
+    deps = [
+        ":common",
+        ":io",
+        "@boost//:bind",
+        "@boost//:signals2",
+        "@boost//:smart_ptr",
+        "@eigen//:eigen",
+    ],
+)
+
 SURFACE_ON_NURBS_SRCS = [
     "surface/src/3rdparty/opennurbs/**",
     "surface/src/on_nurbs/**",
