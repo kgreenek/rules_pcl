@@ -12,9 +12,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "rules_pcl",
-    path = "https://github.com/kgreenek/rules_pcl/archive/e693a85a21972616408c1fb2b350f39058ab9181.tar.gz",
-    sha256 = "7b007e5dab1796dab0e8ce849e6b55ceb12b8c920ab414a09b9145c525cb3a10",
-    strip_prefix = "rules_pcl-e693a85a21972616408c1fb2b350f39058ab9181",
+    path = "https://github.com/kgreenek/rules_pcl/archive/c62afc4f026bd7453b44e54d83b06919cf79c6a7.tar.gz",
+    sha256 = "3bc58bd33e6c0555aabd2b9ade0daa75c1d3c1630241a36652670d0095d9dcb5",
+    strip_prefix = "rules_pcl-c62afc4f026bd7453b44e54d83b06919cf79c6a7",
 )
 
 load("@rules_pcl//bzl:repositories.bzl", "pcl_repositories")
