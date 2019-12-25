@@ -74,6 +74,18 @@ pcl_library(
     ],
 )
 
+pcl_library(
+    name = "geometry",
+    deps = [
+        ":common",
+        "@boost//:concept_check",
+        "@boost//:operators",
+        "@boost//:smart_ptr",
+        "@boost//:type_traits",
+        "@boost//:version",
+    ],
+)
+
 # TODO(kgreenek): This one is going to be hard because it depends on a lot of the external
 # dependencies above that aren't supported yet. For now, just exclude everything that has external
 # dependencies. We'll probably need a macro to set the dependencies based on what external
