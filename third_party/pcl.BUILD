@@ -22,8 +22,8 @@ pcl_library(
         "@boost//:fusion",
         "@boost//:mpl",
         "@boost//:preprocessor",
-        "@boost//:signals2",
         "@boost//:smart_ptr",
+        "@boost//:signals2",
         "@eigen//:eigen",
     ],
 )

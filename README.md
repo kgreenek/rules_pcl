@@ -17,12 +17,12 @@ http_archive(
     strip_prefix = "rules_pcl-e693a85a21972616408c1fb2b350f39058ab9181",
 )
 
-load("@rules_pcl//bzl:pcl_deps.bzl", "pcl_deps")
-pcl_deps()
-
-# NOTE: This must be loaded after the call to pcl_deps().
-load("@rules_pcl//bzl:pcl_repositories.bzl", "pcl_repositories")
+load("@rules_pcl//bzl:repositories.bzl", "pcl_repositories")
 pcl_repositories()
+
+# NOTE: This must be loaded after the call to pcl_repositories().
+load("@rules_pcl//bzl:init_deps.bzl", "pcl_init_deps")
+pcl_init_deps()
 ```
 
 In your top-level BUILD.bazel file:
