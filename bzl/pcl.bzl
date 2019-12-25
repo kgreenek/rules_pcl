@@ -118,13 +118,14 @@ gen_pcl_config = rule(
 
 def pcl_library(name, **kwargs):
     exclude_srcs = kwargs.pop("exclude_srcs", [])
+    exclude_hdrs = kwargs.pop("exclude_hdrs", [])
     native.cc_library(
         name = name,
         srcs = native.glob([
             "{}/src/**/*.cpp".format(name),
             "{}/include/**/*.hpp".format(name),
         ], exclude = exclude_srcs),
-        hdrs = native.glob(["{}/include/**/*.h".format(name)]),
+        hdrs = native.glob(["{}/include/**/*.h".format(name)], exclude=exclude_hdrs),
         includes = ["{}/include".format(name)],
         visibility = ["//visibility:public"],
         **kwargs
