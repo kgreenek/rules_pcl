@@ -248,6 +248,75 @@ pcl_library(
     ],
 )
 
+# TODO(kgreenek): Finish this once the visualization lib is done.
+#pcl_library(
+#    name = "outofcore",
+#    exclude_srcs = ["outofcore/src/visualization/**"],
+#    exclude_hdrs = ["outofcore/include/pcl/outofcore/visualization/**"],
+#    deps = [
+#        ":common",
+#        ":io",
+#        ":filters",
+#        ":octree",
+#        "@boost//:accumulators",
+#        "@boost//:conversion",
+#        "@boost//:core",
+#        "@boost//:cstdint",
+#        "@boost//:date_time",
+#        "@boost//:filesystem",
+#        "@boost//:foreach",
+#        "@boost//:random",
+#        "@boost//:smart_ptr",
+#        "@boost//:thread",
+#        "@boost//:uuid",
+#        "@eigen//:eigen",
+#    ],
+#)
+#
+#cc_binary(
+#    name = "outofcore_print",
+#    srcs = ["outofcore/tools/outofcore_print.cpp"],
+#    deps = [
+#        ":outofcore",
+#        "@boost//:accumulators",
+#        "@boost//:algorithm",
+#        "@boost//:cstdint",
+#        "@boost//:filesystem",
+#        "@boost//:foreach",
+#        "@boost//:smart_ptr",
+#        "@eigen//:eigen",
+#    ],
+#)
+#
+#cc_binary(
+#    name = "outofcore_process",
+#    srcs = ["outofcore/tools/outofcore_process.cpp"],
+#    deps = [
+#        ":outofcore",
+#        "@boost//:cstdint",
+#        "@boost//:filesystem",
+#        "@boost//:foreach",
+#        "@boost//:smart_ptr",
+#        "@eigen//:eigen",
+#    ],
+#)
+#
+#cc_binary(
+#    name = "outofcore_viewer",
+#    srcs = ["outofcore/tools/outofcore_viewer.cpp"],
+#    deps = [
+#        ":outofcore",
+#        ":visualization",
+#        "@boost//:cstdint",
+#        "@boost//:date_time",
+#        "@boost//:filesystem",
+#        "@boost//:smart_ptr",
+#        "@boost//:thread",
+#        "@eigen//:eigen",
+#        "vtk",
+#    ],
+#)
+
 pcl_library(
     name = "people",
     deps = [
@@ -441,3 +510,32 @@ pcl_library(
         "@eigen//:eigen",
     ],
 )
+
+# NOTE: This depends on VTK.
+# TODO(kgreenek): Figure out how to handle VTK and enable.
+#pcl_library(
+#    name = "visualization",
+#    deps = [
+#        ":common",
+#        ":geometry",
+#        ":io",
+#        ":kdtree",
+#        ":octree",
+#        ":search",
+#        "@boost//:algorithm",
+#        "@boost//:bind",
+#        "@boost//:circular_buffer",
+#        "@boost//:chrono",
+#        "@boost//:date_time",
+#        "@boost//:filesystem",
+#        "@boost//:foreach",
+#        "@boost//:format",
+#        "@boost//:function",
+#        "@boost//:smart_ptr",
+#        "@boost//:signals2",
+#        "@boost//:thread",
+#        "@boost//:unordered",
+#        "@boost//:uuid",
+#        "@eigen//:eigen",
+#    ],
+#)
