@@ -47,9 +47,9 @@ def pcl_repositories():
         http_archive,
         name = "pcl",
         build_file = "@rules_pcl//third_party:pcl.BUILD",
-        sha256 = "0add34d53cd27f8c468a59b8e931a636ad3174b60581c0387abb98a9fc9cddb6",
-        strip_prefix = "pcl-pcl-1.9.1",
-        urls = ["https://github.com/PointCloudLibrary/pcl/archive/pcl-1.9.1.tar.gz"],
+        sha256 = "85fd437a1b326de57d85d9862a1ca3e833301f8d78a1cafdbe48113ffd9f9168",
+        strip_prefix = "pcl-1d3622c1e624994bc013e3e66bc5d98fbb807a89",
+        urls = ["https://github.com/PointCloudLibrary/pcl/archive/1d3622c1e624994bc013e3e66bc5d98fbb807a89.tar.gz"],
     )
 
     _maybe_repo(

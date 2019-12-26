@@ -22,13 +22,17 @@ pcl_library(
     deps = [
         "@//:pcl_config",
         "@boost//:algorithm",
+        "@boost//:cstdint",
+        "@boost//:current_function",
         "@boost//:date_time",
-        "@boost//:filesystem",
+        "@boost//:foreach",
         "@boost//:fusion",
         "@boost//:mpl",
+        "@boost//:optional",
+        "@boost//:predef",
         "@boost//:preprocessor",
-        "@boost//:smart_ptr",
         "@boost//:signals2",
+        "@boost//:smart_ptr",
         "@eigen//:eigen",
     ],
 )
@@ -42,13 +46,10 @@ pcl_library(
         ":kdtree",
         ":octree",
         ":search",
-        "@boost//:bind",
-        "@boost//:function",
+        "@boost//:compute",
         "@boost//:graph",
         "@boost//:property_map",
-        "@boost//:random",
         "@boost//:smart_ptr",
-        "@boost//:unordered",
         "@eigen//:eigen",
     ],
 )
@@ -61,15 +62,13 @@ pcl_library(
         ":kdtree",
         ":octree",
         ":search",
-        "@boost//:bind",
+        "@//:pcl_config",
         "@boost//:dynamic_bitset",
-        "@boost//:function",
         "@boost//:fusion",
         "@boost//:mpl",
         "@boost//:optional",
         "@boost//:random",
         "@boost//:smart_ptr",
-        "@boost//:unordered",
         "@eigen//:eigen",
     ],
 )
@@ -81,7 +80,6 @@ pcl_library(
         "@boost//:concept_check",
         "@boost//:operators",
         "@boost//:smart_ptr",
-        "@boost//:type_traits",
         "@boost//:version",
         "@eigen//:eigen",
     ],
@@ -91,6 +89,8 @@ pcl_library(
     name = "ml",
     deps = [
         ":common",
+        "@boost//:intrusive",
+        "@boost//:smart_ptr",
         "@eigen//:eigen",
     ],
 )
@@ -122,9 +122,6 @@ IO_DINAST_HDRS = ["io/include/pcl/io/dinast_grabber.h"]
 IO_ENSENSO_SRCS = ["io/src/ensenso_grabber.cpp"]
 IO_ENSENSO_HDRS = ["io/include/pcl/io/ensenso_grabber.h"]
 
-IO_FZAPI_SRCS = ["io/src/fotonic_grabber.cpp"]
-IO_FZAPI_HDRS = ["io/include/pcl/io/fotonic_grabber.h"]
-
 IO_OPENNI_SRCS = [
     "io/src/oni_grabber.cpp",
     "io/src/openni_camera/**",
@@ -150,9 +147,12 @@ IO_REAL_SENSE_SRCS = [
     "io/src/real_sense_grabber.cpp",
 ]
 IO_REAL_SENSE_HDRS = [
-    "io/include/pcl/io/depth_sense/**",
-    "io/include/pcl/io/depth_sense_grabber.h",
+    "io/include/pcl/io/real_sense/**",
+    "io/include/pcl/io/real_sense_grabber.h",
 ]
+
+IO_REAL_SENSE_2_SRCS = ["io/src/real_sense_2_grabber.cpp"]
+IO_REAL_SENSE_2_HDRS = ["io/include/pcl/io/real_sense_2_grabber.h"]
 
 IO_VTK_SRCS = [
     "io/src/png_io.cpp",
@@ -171,45 +171,46 @@ pcl_library(
         IO_DEPTH_SENSE_SRCS +
         IO_DINAST_SRCS +
         IO_ENSENSO_SRCS +
-        IO_FZAPI_SRCS +
         IO_OPENNI_SRCS +
         IO_OPENNI2_SRCS +
         IO_REAL_SENSE_SRCS +
+        IO_REAL_SENSE_2_SRCS +
         IO_VTK_SRCS,
     exclude_hdrs =
         IO_DAVIDSDK_HDRS +
         IO_DEPTH_SENSE_HDRS +
         IO_DINAST_HDRS +
         IO_ENSENSO_HDRS +
-        IO_FZAPI_HDRS +
         IO_OPENNI_HDRS +
         IO_OPENNI2_HDRS +
         IO_REAL_SENSE_HDRS +
+        IO_REAL_SENSE_2_HDRS +
         IO_VTK_HDRS,
     deps = [
         ":common",
         ":octree",
+        "@//:pcl_config",
         "@boost//:algorithm",
+        "@boost//:array",
         "@boost//:asio",
-        "@boost//:bind",
-        "@boost//:chrono",
         "@boost//:circular_buffer",
-        "@boost//:cstdint",
+        "@boost//:core",
         "@boost//:date_time",
-        "@boost//:detail",
+        "@boost//:exception",
         "@boost//:filesystem",
         "@boost//:foreach",
-        "@boost//:function",
-        "@boost//:interprocess",
+        "@boost//:format",
         "@boost//:lexical_cast",
+        "@boost//:interprocess",
+        "@boost//:iostreams",
+        "@boost//:math",
         "@boost//:mpl",
         "@boost//:numeric_conversion",
+        "@boost//:property_tree",
         "@boost//:signals2",
         "@boost//:smart_ptr",
-        "@boost//:thread",
+        "@boost//:system",
         "@boost//:tokenizer",
-        "@boost//:tuple",
-        "@boost//:utility",
         "@boost//:version",
         "@org_libpng_libpng//:libpng",
     ],
@@ -231,8 +232,6 @@ pcl_library(
         ":features",
         ":octree",
         "@//:pcl_config",
-        "@boost//:bind",
-        "@boost//:function",
         "@boost//:smart_ptr",
         "@eigen//:eigen",
     ],
@@ -242,8 +241,9 @@ pcl_library(
     name = "octree",
     deps = [
         ":common",
-        "@boost//:bind",
+        "@boost//:graph",
         "@boost//:smart_ptr",
+        "@boost//:tuple",
         "@eigen//:eigen",
     ],
 )
@@ -258,16 +258,11 @@ pcl_library(
 #        ":io",
 #        ":filters",
 #        ":octree",
-#        "@boost//:accumulators",
-#        "@boost//:conversion",
 #        "@boost//:core",
-#        "@boost//:cstdint",
-#        "@boost//:date_time",
 #        "@boost//:filesystem",
 #        "@boost//:foreach",
 #        "@boost//:random",
 #        "@boost//:smart_ptr",
-#        "@boost//:thread",
 #        "@boost//:uuid",
 #        "@eigen//:eigen",
 #    ],
@@ -280,10 +275,8 @@ pcl_library(
 #        ":outofcore",
 #        "@boost//:accumulators",
 #        "@boost//:algorithm",
-#        "@boost//:cstdint",
 #        "@boost//:filesystem",
 #        "@boost//:foreach",
-#        "@boost//:smart_ptr",
 #        "@eigen//:eigen",
 #    ],
 #)
@@ -293,10 +286,8 @@ pcl_library(
 #    srcs = ["outofcore/tools/outofcore_process.cpp"],
 #    deps = [
 #        ":outofcore",
-#        "@boost//:cstdint",
 #        "@boost//:filesystem",
 #        "@boost//:foreach",
-#        "@boost//:smart_ptr",
 #        "@eigen//:eigen",
 #    ],
 #)
@@ -307,11 +298,8 @@ pcl_library(
 #    deps = [
 #        ":outofcore",
 #        ":visualization",
-#        "@boost//:cstdint",
 #        "@boost//:date_time",
 #        "@boost//:filesystem",
-#        "@boost//:smart_ptr",
-#        "@boost//:thread",
 #        "@eigen//:eigen",
 #        "vtk",
 #    ],
@@ -330,11 +318,6 @@ pcl_library(
         ":sample_consensus",
         ":search",
         ":segmentation",
-        "@boost//:bind",
-        "@boost//:date_time",
-        "@boost//:function",
-        "@boost//:smart_ptr",
-        "@boost//:thread",
         "@eigen//:eigen",
     ],
 )
@@ -349,12 +332,10 @@ pcl_library(
         ":registration",
         ":search",
         "@boost//:algorithm",
-        "@boost//:bind",
         "@boost//:filesystem",
         "@boost//:graph",
         "@boost//:random",
         "@boost//:smart_ptr",
-        "@boost//:tuple",
         "@boost//:unordered",
         "@eigen//:eigen",
     ],
@@ -371,15 +352,10 @@ pcl_library(
         ":octree",
         ":sample_consensus",
         ":search",
-        "@boost//:accumulators",
-        "@boost//:bind",
         "@boost//:core",
-        "@boost//:function",
         "@boost//:graph",
         "@boost//:property_map",
         "@boost//:smart_ptr",
-        "@boost//:tuple",
-        "@boost//:unordered",
         "@eigen//:eigen",
     ],
 )
@@ -410,9 +386,8 @@ pcl_library(
         ":sample_consensus",
         ":search",
         "@boost//:bimap",
-        "@boost//:bind",
         "@boost//:concept",
-        "@boost//:function",
+        "@boost//:current_function",
         "@boost//:graph",
         "@boost//:multi_array",
         "@boost//:property_map",
@@ -429,9 +404,7 @@ pcl_library(
     deps = [
         ":common",
         ":io",
-        "@boost//:bind",
         "@boost//:signals2",
-        "@boost//:smart_ptr",
         "@eigen//:eigen",
     ],
 )
@@ -475,12 +448,10 @@ pcl_library(
         ":kdtree",
         ":octree",
         ":search",
-        "@boost//:bind",
+        "@//:pcl_config",
+        "@boost//:current_function",
         "@boost//:dynamic_bitset",
-        "@boost//:function",
-        "@boost//:random",
         "@boost//:smart_ptr",
-        "@boost//:unordered",
         "@eigen//:eigen",
         "@qhull//:libqhullcpp",
     ],
@@ -523,19 +494,13 @@ pcl_library(
 #        ":kdtree",
 #        ":octree",
 #        ":search",
+#        "@//:pcl_config",
 #        "@boost//:algorithm",
-#        "@boost//:bind",
-#        "@boost//:circular_buffer",
-#        "@boost//:chrono",
 #        "@boost//:date_time",
 #        "@boost//:filesystem",
 #        "@boost//:foreach",
-#        "@boost//:format",
-#        "@boost//:function",
-#        "@boost//:smart_ptr",
 #        "@boost//:signals2",
-#        "@boost//:thread",
-#        "@boost//:unordered",
+#        "@boost//:smart_ptr",
 #        "@boost//:uuid",
 #        "@eigen//:eigen",
 #    ],

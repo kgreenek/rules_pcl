@@ -60,7 +60,6 @@ def _gen_pcl_config_impl(ctx):
             ("HAVE_QHULL 1", True),
             ("HAVE_QHULL_2011 1", True),
             ("HAVE_CUDA 1", False),
-            ("HAVE_FZAPI 1", False),
             ("HAVE_ENSENSO 1", False),
             ("HAVE_DAVIDSDK 1", False),
             ("HAVE_PNG", True),
@@ -128,6 +127,7 @@ def pcl_library(name, **kwargs):
             "{}/include/**/*.h".format(name),
             "{}/include/**/*.hh".format(name),
         ], exclude=exclude_hdrs),
+        copts = ["-Wno-unknown-pragmas"],
         includes = ["{}/include".format(name)],
         visibility = ["//visibility:public"],
         **kwargs
