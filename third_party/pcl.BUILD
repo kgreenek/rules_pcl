@@ -249,6 +249,28 @@ pcl_library(
 )
 
 pcl_library(
+    name = "people",
+    deps = [
+        ":common",
+        ":features",
+        ":filters",
+        ":geometry",
+        ":io",
+        ":kdtree",
+        ":octree",
+        ":sample_consensus",
+        ":search",
+        ":segmentation",
+        "@boost//:bind",
+        "@boost//:date_time",
+        "@boost//:function",
+        "@boost//:smart_ptr",
+        "@boost//:thread",
+        "@eigen//:eigen",
+    ],
+)
+
+pcl_library(
     name = "recognition",
     deps = [
         ":common",
