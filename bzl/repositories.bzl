@@ -7,7 +7,7 @@ def pcl_repositories():
         name = "com_github_nelhage_rules_boost",
         sha256 = "b64e6f7e96c5b0d7ebcb74c5ee29ab879b8ef8c37581ed0be5ff6c23168da985",
         strip_prefix = "rules_boost-ed844db5990d21b75dc3553c057069f324b3916b",
-        url = "https://github.com/nelhage/rules_boost/archive/ed844db5990d21b75dc3553c057069f324b3916b.tar.gz",
+        urls = ["https://github.com/nelhage/rules_boost/archive/ed844db5990d21b75dc3553c057069f324b3916b.tar.gz"],
     )
 
     _maybe_repo(
@@ -16,7 +16,7 @@ def pcl_repositories():
         build_file = "@rules_pcl//third_party:eigen.BUILD",
         sha256 = "d56fbad95abf993f8af608484729e3d87ef611dd85b3380a8bad1d5cbc373a57",
         strip_prefix = "eigen-3.3.7",
-        url = "https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.gz",
+        urls = ["https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.gz"],
     )
 
     _maybe_repo(
@@ -48,8 +48,17 @@ def pcl_repositories():
         name = "pcl",
         build_file = "@rules_pcl//third_party:pcl.BUILD",
         sha256 = "0add34d53cd27f8c468a59b8e931a636ad3174b60581c0387abb98a9fc9cddb6",
-        url = "https://github.com/PointCloudLibrary/pcl/archive/pcl-1.9.1.tar.gz",
         strip_prefix = "pcl-pcl-1.9.1",
+        urls = ["https://github.com/PointCloudLibrary/pcl/archive/pcl-1.9.1.tar.gz"],
+    )
+
+    _maybe_repo(
+        http_archive,
+        name = "qhull",
+        build_file = "@rules_pcl//third_party:qhull.BUILD",
+        sha256 = "cf7235b76244595a86b9407b906e3259502b744528318f2178155e5899d6cf9f",
+        strip_prefix = "qhull-2019.1",
+        urls = ["https://github.com/qhull/qhull/archive/2019.1.tar.gz"],
     )
 
 

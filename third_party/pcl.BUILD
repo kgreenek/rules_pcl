@@ -464,11 +464,11 @@ pcl_library(
     name = "surface",
     exclude_srcs =
         SURFACE_ON_NURBS_SRCS +
-        SURFACE_QHULL_SRCS +
+        #SURFACE_QHULL_SRCS +
         SURFACE_VTK_SRCS,
     exclude_hdrs =
         SURFACE_ON_NURBS_HDRS +
-        SURFACE_QHULL_HDRS +
+        #SURFACE_QHULL_HDRS +
         SURFACE_VTK_HDRS,
     deps = [
         ":common",
@@ -482,6 +482,7 @@ pcl_library(
         "@boost//:smart_ptr",
         "@boost//:unordered",
         "@eigen//:eigen",
+        "@qhull//:libqhullcpp",
     ],
 )
 

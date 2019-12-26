@@ -52,14 +52,13 @@ def _gen_pcl_config_impl(ctx):
             ("PCL_ONLY_CORE_POINT_TYPES", ctx.attr.no_precompile),
         )
     )
-    # NOTE: Most of PCL's external dependencies are not supported yet.
     substitutions.update(
         _cmakedefine_substitutions(
             ("HAVE_TBB 1", False),
             ("HAVE_OPENNI 1", False),
             ("HAVE_OPENNI2 1", False),
-            ("HAVE_QHULL 1", False),
-            ("HAVE_QHULL_2011 1", False),
+            ("HAVE_QHULL 1", True),
+            ("HAVE_QHULL_2011 1", True),
             ("HAVE_CUDA 1", False),
             ("HAVE_FZAPI 1", False),
             ("HAVE_ENSENSO 1", False),
