@@ -12,9 +12,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "rules_pcl",
-    path = "https://github.com/kgreenek/rules_pcl/archive/c62afc4f026bd7453b44e54d83b06919cf79c6a7.tar.gz",
-    sha256 = "3bc58bd33e6c0555aabd2b9ade0daa75c1d3c1630241a36652670d0095d9dcb5",
-    strip_prefix = "rules_pcl-c62afc4f026bd7453b44e54d83b06919cf79c6a7",
+    path = "https://github.com/kgreenek/rules_pcl/archive/v1.0.0.tar.gz",
+    sha256 = "91f224f1e76110a1478fae9f50f3a86821cb016b81f0abf5693dc7a9a3e0bfc7",
+    strip_prefix = "rules_pcl-1.0.0",
 )
 
 load("@rules_pcl//bzl:repositories.bzl", "pcl_repositories")
@@ -45,4 +45,25 @@ cc_binary(
 )
 ```
 
-Right now only a subset of libraries are supported. For supported libraries, see `//bzl/pcl.bzl`.
+PCL requires C++14. You can either pass it as an argument to the bazel build command:
+
+```
+bazel build --cxxopt='-std=c++14' //...
+```
+
+Or you can make C++14 the default for all builds by adding this to a file called `.bazelrc` in your
+workspace root:
+
+```
+build --cxxopt='-std=c++14'
+```
+
+Or you can update your toolchain to build with C++14.
+
+All sub-modules are currently supported except for the following:
+* cuda
+* gpu
+* outofcore
+* visualization
+
+An example bazel workspace can be found under the //example directory of this repo.
