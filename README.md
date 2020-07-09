@@ -12,7 +12,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "rules_pcl",
-    path = "https://github.com/kgreenek/rules_pcl/archive/v1.0.0.tar.gz",
+    url = "https://github.com/kgreenek/rules_pcl/archive/v1.0.0.tar.gz",
     sha256 = "91f224f1e76110a1478fae9f50f3a86821cb016b81f0abf5693dc7a9a3e0bfc7",
     strip_prefix = "rules_pcl-1.0.0",
 )
@@ -28,7 +28,7 @@ pcl_init_deps()
 In your top-level BUILD.bazel file:
 
 ```
-load("@rules_pcl//:bzl/pcl.bzl", "pcl_config")
+load("@rules_pcl//bzl:pcl.bzl", "pcl_config")
 pcl_config()
 ```
 
