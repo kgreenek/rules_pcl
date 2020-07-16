@@ -1,7 +1,33 @@
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
 _PCL_CONFIG_H_TEMPLATE = "@pcl//:pcl_config.h.in"
 
+_PCL_AARCH64_COMPILER_CONFIG = {
+    "have_posix_memalign": True,
+    "have_mm_malloc": False,
+    "have_sse4_2_extensions": False,
+    "have_sse4_1_extensions": False,
+    "have_ssse3_extensions": False,
+    "have_sse3_extensions": False,
+    "have_sse2_extensions": False,
+    "have_sse_extensions": False,
+}
+
+_PCL_DEFAULT_COMPILER_CONFIG = {
+    "have_posix_memalign": True,
+    "have_mm_malloc": True,
+    "have_sse4_2_extensions": True,
+    "have_sse4_1_extensions": True,
+    "have_ssse3_extensions": True,
+    "have_sse3_extensions": True,
+    "have_sse2_extensions": True,
+    "have_sse_extensions": True,
+}
+
+def _compiler_config_value(value, kwargs):
+    # NOTE: __pcl_linux-aarch64 is defined by the pcl_config macro.
+    return select({
+        ":__pcl_linux-aarch64": _PCL_AARCH64_COMPILER_CONFIG[value],
+        "//conditions:default": _PCL_DEFAULT_COMPILER_CONFIG[value],
+    }) if not value in kwargs else kwargs[value]
 
 def _cmakedefine_substitutions(*args):
     substitutions = {}
@@ -11,10 +37,9 @@ def _cmakedefine_substitutions(*args):
             substitutions[full_cmakedefine_str] = "#define {}".format(cmakedefine_str)
         else:
             substitutions[full_cmakedefine_str] = "/* #undef {} */".format(
-                cmakedefine_str.split(" ")[0])
+                cmakedefine_str.split(" ")[0],
+            )
     return substitutions
-
-
 
 def _log_level_substitutions(log_level):
     valid_log_levels = ["Always", "Error", "Warn", "Info", "Debug", "Verbose"]
@@ -29,11 +54,13 @@ def _log_level_substitutions(log_level):
         ("VERBOSITY_LEVEL_VERBOSE", log_level == "Verbose"),
     )
 
-
 def _gen_pcl_config_impl(ctx):
     version_pretty_str = "{}.{}.{}{}".format(
-        ctx.attr.version_major, ctx.attr.version_minor, ctx.attr.version_patch,
-        "-dev" if ctx.attr.dev_version else "")
+        ctx.attr.version_major,
+        ctx.attr.version_minor,
+        ctx.attr.version_patch,
+        "-dev" if ctx.attr.dev_version else "",
+    )
     dev_version_str = "1" if ctx.attr.dev_version else "0"
     substitutions = {
         "@CMAKE_BUILD_TYPE@": ctx.attr.build_type,
@@ -50,7 +77,7 @@ def _gen_pcl_config_impl(ctx):
         _cmakedefine_substitutions(
             ("PCL_NO_PRECOMPILE", ctx.attr.no_precompile),
             ("PCL_ONLY_CORE_POINT_TYPES", ctx.attr.no_precompile),
-        )
+        ),
     )
     substitutions.update(
         _cmakedefine_substitutions(
@@ -63,29 +90,27 @@ def _gen_pcl_config_impl(ctx):
             ("HAVE_ENSENSO 1", False),
             ("HAVE_DAVIDSDK 1", False),
             ("HAVE_PNG", True),
-        )
+        ),
     )
+
     # SSE macros.
-    # Just enable them all, since it should be rare that someone is targeting a platform that
-    # doesn't support all of these. Please let us know if you have a specific use-case where this
-    # doesn't hold.
     substitutions.update(
         _cmakedefine_substitutions(
-            ("HAVE_POSIX_MEMALIGN", True),
-            ("HAVE_MM_MALLOC", True),
-            ("HAVE_SSE4_2_EXTENSIONS", True),
-            ("HAVE_SSE4_1_EXTENSIONS", True),
-            ("HAVE_SSSE3_EXTENSIONS", True),
-            ("HAVE_SSE3_EXTENSIONS", True),
-            ("HAVE_SSE2_EXTENSIONS", True),
-            ("HAVE_SSE_EXTENSIONS", True),
-        )
+            ("HAVE_POSIX_MEMALIGN", ctx.attr.have_posix_memalign),
+            ("HAVE_MM_MALLOC", ctx.attr.have_mm_malloc),
+            ("HAVE_SSE4_2_EXTENSIONS", ctx.attr.have_sse4_2_extensions),
+            ("HAVE_SSE4_1_EXTENSIONS", ctx.attr.have_sse4_1_extensions),
+            ("HAVE_SSSE3_EXTENSIONS", ctx.attr.have_ssse3_extensions),
+            ("HAVE_SSE3_EXTENSIONS", ctx.attr.have_sse3_extensions),
+            ("HAVE_SSE2_EXTENSIONS", ctx.attr.have_sse2_extensions),
+            ("HAVE_SSE_EXTENSIONS", ctx.attr.have_sse_extensions),
+        ),
     )
     substitutions.update(
         _cmakedefine_substitutions(
             ("OPENGL_IS_A_FRAMEWORK", False),
             ("GLUT_IS_A_FRAMEWORK", False),
-        )
+        ),
     )
     ctx.actions.expand_template(
         template = ctx.file._template,
@@ -93,18 +118,26 @@ def _gen_pcl_config_impl(ctx):
         output = ctx.outputs.pcl_config_hdr,
     )
 
-
 gen_pcl_config = rule(
     implementation = _gen_pcl_config_impl,
     attrs = {
         "build_type": attr.string(default = "RelWithDebInfo"),
-        "dev_version": attr.bool(default = False),
         "log_level": attr.string(default = "Info"),
         "no_precompile": attr.bool(default = False),
         "only_core_point_types": attr.bool(default = False),
         "version_major": attr.string(default = "1"),
         "version_minor": attr.string(default = "9"),
         "version_patch": attr.string(default = "1"),
+        "dev_version": attr.bool(default = False),
+        # Compiler config settings.
+        "have_posix_memalign": attr.bool(default = True),
+        "have_mm_malloc": attr.bool(default = True),
+        "have_sse4_2_extensions": attr.bool(default = True),
+        "have_sse4_1_extensions": attr.bool(default = True),
+        "have_ssse3_extensions": attr.bool(default = True),
+        "have_sse3_extensions": attr.bool(default = True),
+        "have_sse2_extensions": attr.bool(default = True),
+        "have_sse_extensions": attr.bool(default = True),
         "_template": attr.label(
             default = Label(_PCL_CONFIG_H_TEMPLATE),
             allow_single_file = True,
@@ -112,7 +145,6 @@ gen_pcl_config = rule(
     },
     outputs = {"pcl_config_hdr": "pcl_config.h"},
 )
-
 
 def pcl_library(name, **kwargs):
     exclude_srcs = kwargs.pop("exclude_srcs", [])
@@ -126,19 +158,36 @@ def pcl_library(name, **kwargs):
         hdrs = native.glob([
             "{}/include/**/*.h".format(name),
             "{}/include/**/*.hh".format(name),
-        ], exclude=exclude_hdrs),
+        ], exclude = exclude_hdrs),
         copts = ["-Wno-unknown-pragmas"],
         includes = ["{}/include".format(name)],
         visibility = ["//visibility:public"],
         **kwargs
     )
 
-
 def pcl_config(**kwargs):
-    gen_pcl_config(name="_gen_pcl_config", **kwargs)
+    native.config_setting(
+        name = "__pcl_linux-aarch64",
+        constraint_values = [
+            "@platforms//os:linux",
+            "@platforms//cpu:aarch64",
+        ],
+    )
+    gen_pcl_config(
+        name = "__pcl_gen_pcl_config",
+        have_posix_memalign = _compiler_config_value("have_posix_memalign", kwargs),
+        have_mm_malloc = _compiler_config_value("have_posix_memalign", kwargs),
+        have_sse4_2_extensions = _compiler_config_value("have_sse4_2_extensions", kwargs),
+        have_sse4_1_extensions = _compiler_config_value("have_sse4_1_extensions", kwargs),
+        have_ssse3_extensions = _compiler_config_value("have_ssse3_extensions", kwargs),
+        have_sse3_extensions = _compiler_config_value("have_sse3_extensions", kwargs),
+        have_sse2_extensions = _compiler_config_value("have_sse2_extensions", kwargs),
+        have_sse_extensions = _compiler_config_value("have_sse_extensions", kwargs),
+        **kwargs
+    )
     native.cc_library(
         name = "pcl_config",
-        hdrs = [":_gen_pcl_config"],
+        hdrs = [":__pcl_gen_pcl_config"],
         include_prefix = "pcl",
         visibility = ["//visibility:public"],
     )
