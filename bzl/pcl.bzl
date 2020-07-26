@@ -176,7 +176,7 @@ def pcl_config(**kwargs):
     gen_pcl_config(
         name = "__pcl_gen_pcl_config",
         have_posix_memalign = _compiler_config_value("have_posix_memalign", kwargs),
-        have_mm_malloc = _compiler_config_value("have_posix_memalign", kwargs),
+        have_mm_malloc = _compiler_config_value("have_mm_malloc", kwargs),
         have_sse4_2_extensions = _compiler_config_value("have_sse4_2_extensions", kwargs),
         have_sse4_1_extensions = _compiler_config_value("have_sse4_1_extensions", kwargs),
         have_ssse3_extensions = _compiler_config_value("have_ssse3_extensions", kwargs),
