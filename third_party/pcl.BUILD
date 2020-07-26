@@ -1,5 +1,5 @@
 # Description:
-#   A Massively Spiffy Yet Delicately Unobtrusive Compression Library.
+#   Point Cloud Library (PCL) pointclouds.org
 
 licenses(["notice"])  # BSD 3-Clause
 

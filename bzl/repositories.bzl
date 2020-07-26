@@ -1,6 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-
 def pcl_repositories():
     _maybe_repo(
         http_archive,
@@ -14,9 +13,15 @@ def pcl_repositories():
         http_archive,
         name = "eigen",
         build_file = "@rules_pcl//third_party:eigen.BUILD",
-        sha256 = "d56fbad95abf993f8af608484729e3d87ef611dd85b3380a8bad1d5cbc373a57",
-        strip_prefix = "eigen-3.3.7",
-        urls = ["https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.gz"],
+        sha256 = "a8d87c8df67b0404e97bcef37faf3b140ba467bc060e2b883192165b319cea8d",
+        strip_prefix = "eigen-git-mirror-3.3.7",
+        # NOTE: The official repo is hosted on gitlab, but gitlab appears to return a 406 error when
+        # trying to fetch archives. So we are using the deprecated github mirror instead until
+        # either bazel or gitlab fixes this issue.
+        # See:
+        #  https://github.com/bazelbuild/bazel/issues/11187
+        #  https://stackoverflow.com/questions/60864626/cannot-fetch-eigen-with-bazel-406-not-acceptable
+        urls = ["https://github.com/eigenteam/eigen-git-mirror/archive/3.3.7.tar.gz"],
     )
 
     _maybe_repo(
@@ -60,7 +65,6 @@ def pcl_repositories():
         strip_prefix = "qhull-2019.1",
         urls = ["https://github.com/qhull/qhull/archive/2019.1.tar.gz"],
     )
-
 
 def _maybe_repo(repo_rule, name, **kwargs):
     """A wrapper around repo rules to prevent adding a rule if it already exists, e.g. if it was
