@@ -28,12 +28,7 @@ def _compiler_config_value(value, kwargs):
         ":__pcl_linux-aarch64": _PCL_AARCH64_COMPILER_CONFIG[value],
         "//conditions:default": _PCL_DEFAULT_COMPILER_CONFIG[value],
     })
-    if not value in kwargs:
-      return default_architecture_value
-    else:
-      kwargs_val = kwargs[value]
-      kwargs.pop(value)
-      return kwargs_val
+    return kwargs.pop(value, default_architecture_value)
 
 def _cmakedefine_substitutions(*args):
     substitutions = {}
