@@ -214,6 +214,7 @@ pcl_library(
         "@boost//:lexical_cast",
         "@boost//:math",
         "@boost//:mpl",
+        "@boost//:multiprecision",  # See: https://github.com/kgreenek/rules_pcl/issues/4
         "@boost//:numeric_conversion",
         "@boost//:property_tree",
         "@boost//:signals2",
