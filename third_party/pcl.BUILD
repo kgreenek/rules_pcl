@@ -33,7 +33,7 @@ pcl_library(
         "@boost//:preprocessor",
         "@boost//:signals2",
         "@boost//:smart_ptr",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -50,7 +50,7 @@ pcl_library(
         "@boost//:graph",
         "@boost//:property_map",
         "@boost//:smart_ptr",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -58,9 +58,9 @@ pcl_library(
     name = "filters",
     deps = [
         ":common",
-        ":sample_consensus",
         ":kdtree",
         ":octree",
+        ":sample_consensus",
         ":search",
         "@//:pcl_config",
         "@boost//:dynamic_bitset",
@@ -69,7 +69,7 @@ pcl_library(
         "@boost//:optional",
         "@boost//:random",
         "@boost//:smart_ptr",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -81,7 +81,7 @@ pcl_library(
         "@boost//:operators",
         "@boost//:smart_ptr",
         "@boost//:version",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -91,7 +91,7 @@ pcl_library(
         ":common",
         "@boost//:intrusive",
         "@boost//:smart_ptr",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -104,12 +104,14 @@ pcl_library(
 
 # Depends on David SDK and VTK.
 IO_DAVIDSDK_SRCS = ["io/src/davidsdk_grabber.cpp"]
+
 IO_DAVIDSDK_HDRS = ["io/include/pcl/io/davidsdk_grabber.h"]
 
 IO_DEPTH_SENSE_SRCS = [
     "io/src/depth_sense/**",
     "io/src/depth_sense_grabber.cpp",
 ]
+
 IO_DEPTH_SENSE_HDRS = [
     "io/include/pcl/io/depth_sense/**",
     "io/include/pcl/io/depth_sense_grabber.h",
@@ -117,9 +119,11 @@ IO_DEPTH_SENSE_HDRS = [
 
 # NOTE: These only depend on libusb-1.0.
 IO_DINAST_SRCS = ["io/src/dinast_grabber.cpp"]
+
 IO_DINAST_HDRS = ["io/include/pcl/io/dinast_grabber.h"]
 
 IO_ENSENSO_SRCS = ["io/src/ensenso_grabber.cpp"]
+
 IO_ENSENSO_HDRS = ["io/include/pcl/io/ensenso_grabber.h"]
 
 IO_OPENNI_SRCS = [
@@ -127,6 +131,7 @@ IO_OPENNI_SRCS = [
     "io/src/openni_camera/**",
     "io/src/openni_grabber.cpp",
 ]
+
 IO_OPENNI_HDRS = [
     "io/include/pcl/io/oni_grabber.h",
     "io/include/pcl/io/openni_camera/**",
@@ -137,6 +142,7 @@ IO_OPENNI2_SRCS = [
     "io/src/openni2/**",
     "io/src/openni2_grabber.cpp",
 ]
+
 IO_OPENNI2_HDRS = [
     "io/include/pcl/io/openni2/**",
     "io/include/pcl/io/openni2_grabber.h",
@@ -146,18 +152,21 @@ IO_REAL_SENSE_SRCS = [
     "io/src/real_sense/**",
     "io/src/real_sense_grabber.cpp",
 ]
+
 IO_REAL_SENSE_HDRS = [
     "io/include/pcl/io/real_sense/**",
     "io/include/pcl/io/real_sense_grabber.h",
 ]
 
 IO_REAL_SENSE_2_SRCS = ["io/src/real_sense_2_grabber.cpp"]
+
 IO_REAL_SENSE_2_HDRS = ["io/include/pcl/io/real_sense_2_grabber.h"]
 
 IO_VTK_SRCS = [
     "io/src/png_io.cpp",
     "io/src/vtk_lib_io.cpp",
 ]
+
 IO_VTK_HDRS = [
     "io/include/pcl/io/impl/vtk_lib_io.hpp",
     "io/include/pcl/io/png_io.h",
@@ -166,16 +175,6 @@ IO_VTK_HDRS = [
 
 pcl_library(
     name = "io",
-    exclude_srcs =
-        IO_DAVIDSDK_SRCS +
-        IO_DEPTH_SENSE_SRCS +
-        IO_DINAST_SRCS +
-        IO_ENSENSO_SRCS +
-        IO_OPENNI_SRCS +
-        IO_OPENNI2_SRCS +
-        IO_REAL_SENSE_SRCS +
-        IO_REAL_SENSE_2_SRCS +
-        IO_VTK_SRCS,
     exclude_hdrs =
         IO_DAVIDSDK_HDRS +
         IO_DEPTH_SENSE_HDRS +
@@ -186,6 +185,16 @@ pcl_library(
         IO_REAL_SENSE_HDRS +
         IO_REAL_SENSE_2_HDRS +
         IO_VTK_HDRS,
+    exclude_srcs =
+        IO_DAVIDSDK_SRCS +
+        IO_DEPTH_SENSE_SRCS +
+        IO_DINAST_SRCS +
+        IO_ENSENSO_SRCS +
+        IO_OPENNI_SRCS +
+        IO_OPENNI2_SRCS +
+        IO_REAL_SENSE_SRCS +
+        IO_REAL_SENSE_2_SRCS +
+        IO_VTK_SRCS,
     deps = [
         ":common",
         ":octree",
@@ -200,9 +209,9 @@ pcl_library(
         "@boost//:filesystem",
         "@boost//:foreach",
         "@boost//:format",
-        "@boost//:lexical_cast",
         "@boost//:interprocess",
         "@boost//:iostreams",
+        "@boost//:lexical_cast",
         "@boost//:math",
         "@boost//:mpl",
         "@boost//:numeric_conversion",
@@ -233,7 +242,7 @@ pcl_library(
         ":octree",
         "@//:pcl_config",
         "@boost//:smart_ptr",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -244,7 +253,7 @@ pcl_library(
         "@boost//:graph",
         "@boost//:smart_ptr",
         "@boost//:tuple",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -318,7 +327,7 @@ pcl_library(
         ":sample_consensus",
         ":search",
         ":segmentation",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -337,7 +346,7 @@ pcl_library(
         "@boost//:random",
         "@boost//:smart_ptr",
         "@boost//:unordered",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -356,7 +365,7 @@ pcl_library(
         "@boost//:graph",
         "@boost//:property_map",
         "@boost//:smart_ptr",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -369,7 +378,7 @@ pcl_library(
         "@boost//:math",
         "@boost//:random",
         "@boost//:smart_ptr",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -377,10 +386,10 @@ pcl_library(
     name = "segmentation",
     deps = [
         ":common",
-        ":geometry",
-        ":kdtree",
         ":features",
         ":filters",
+        ":geometry",
+        ":kdtree",
         ":ml",
         ":octree",
         ":sample_consensus",
@@ -395,7 +404,7 @@ pcl_library(
         "@boost//:smart_ptr",
         "@boost//:tuple",
         "@boost//:version",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -405,7 +414,7 @@ pcl_library(
         ":common",
         ":io",
         "@boost//:signals2",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -413,6 +422,7 @@ SURFACE_ON_NURBS_SRCS = [
     "surface/src/3rdparty/opennurbs/**",
     "surface/src/on_nurbs/**",
 ]
+
 SURFACE_ON_NURBS_HDRS = [
     "surface/include/pcl/surface/3rdparty/opennurbs",
     "surface/include/pcl/surface/on_nurbs",
@@ -424,6 +434,7 @@ SURFACE_QHULL_SRCS = [
     "surface/src/concave_hull.cpp",
     "surface/src/convex_hull.cpp",
 ]
+
 SURFACE_QHULL_HDRS = [
     "surface/include/pcl/surface/concave_hull.h",
     "surface/include/pcl/surface/convex_hull.h",
@@ -431,18 +442,19 @@ SURFACE_QHULL_HDRS = [
 ]
 
 SURFACE_VTK_SRCS = ["surface/src/vtk_smoothing/**"]
+
 SURFACE_VTK_HDRS = ["surface/include/pcl/surface/vtk_smoothing/**"]
 
 pcl_library(
     name = "surface",
-    exclude_srcs =
-        SURFACE_ON_NURBS_SRCS +
-        #SURFACE_QHULL_SRCS +
-        SURFACE_VTK_SRCS,
     exclude_hdrs =
         SURFACE_ON_NURBS_HDRS +
         #SURFACE_QHULL_HDRS +
         SURFACE_VTK_HDRS,
+    exclude_srcs =
+        SURFACE_ON_NURBS_SRCS +
+        #SURFACE_QHULL_SRCS +
+        SURFACE_VTK_SRCS,
     deps = [
         ":common",
         ":kdtree",
@@ -452,7 +464,7 @@ pcl_library(
         "@boost//:current_function",
         "@boost//:dynamic_bitset",
         "@boost//:smart_ptr",
-        "@eigen//:eigen",
+        "@eigen",
         "@qhull//:libqhullcpp",
     ],
 )
@@ -465,7 +477,7 @@ pcl_library(
         ":octree",
         # TODO flann. Seems to work anyway?
         "@boost//:smart_ptr",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
@@ -479,7 +491,7 @@ pcl_library(
         ":search",
         "@boost//:random",
         "@boost//:smart_ptr",
-        "@eigen//:eigen",
+        "@eigen",
     ],
 )
 
