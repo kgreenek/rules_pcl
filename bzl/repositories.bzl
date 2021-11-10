@@ -66,6 +66,24 @@ def pcl_repositories():
         urls = ["https://github.com/qhull/qhull/archive/2019.1.tar.gz"],
     )
 
+    _maybe_repo(
+        http_archive,
+        name = "flann",
+        build_file = "@rules_pcl//third_party:flann.BUILD",
+        sha256 = "dfbb9321b0d687626a644c70872a2c540b16200e7f4c7bd72f91ae032f445c08",
+        strip_prefix = "flann-1.8.4-src",
+        urls = ["https://www.cs.ubc.ca/research/flann/uploads/FLANN/flann-1.8.4-src.zip"],
+    )
+
+    _maybe_repo(
+        http_archive,
+        name = "lz4",
+        build_file = "@rules_pcl//third_party:lz4.BUILD",
+        sha256 = "030644df4611007ff7dc962d981f390361e6c97a34e5cbc393ddfbe019ffe2c1",
+        strip_prefix = "lz4-1.9.3",
+        urls = ["https://github.com/lz4/lz4/archive/v1.9.3.tar.gz"],
+    )
+
 def _maybe_repo(repo_rule, name, **kwargs):
     """A wrapper around repo rules to prevent adding a rule if it already exists, e.g. if it was
         already added to a user's WORKSPACE file by other dependencies.
