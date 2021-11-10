@@ -132,6 +132,6 @@ cc_library(
         "src/qhulltest/RoadTest.h",
     ],
     includes = ["src"],
-    deps = [":libqhull_r"],
+    deps = [":libqhull_r",":libqhull"],
     visibility = ["//visibility:public"],
 )
