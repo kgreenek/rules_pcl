@@ -3,6 +3,10 @@
 
 licenses(["notice"])  # BSD/MIT-like license
 
+package(
+    default_visibility = ["//visibility:public"],
+)
+
 cc_library(
     name = "libqhull",
     srcs = [
@@ -39,7 +43,6 @@ cc_library(
     ],
     includes = ["src"],
     linkopts = ["-lm"],
-    visibility = ["//visibility:public"],
 )
 
 cc_library(
@@ -78,11 +81,10 @@ cc_library(
     ],
     includes = ["src"],
     linkopts = ["-lm"],
-    visibility = ["//visibility:public"],
 )
 
 cc_library(
-    name = "libqhullcpp",
+    name = "qhull",
     srcs = [
         "src/libqhullcpp/Coordinates.cpp",
         "src/libqhullcpp/PointCoordinates.cpp",
@@ -132,6 +134,5 @@ cc_library(
         "src/qhulltest/RoadTest.h",
     ],
     includes = ["src"],
-    deps = [":libqhull_r"],
-    visibility = ["//visibility:public"],
+    deps = [":libqhull_r", ":libqhull"],
 )

@@ -14,6 +14,7 @@ pcl_library(
         ":common",
         ":filters",
         "@boost//:smart_ptr",
+        "@boost//:filesystem",
     ],
 )
 
@@ -32,6 +33,7 @@ pcl_library(
         "@boost//:predef",
         "@boost//:preprocessor",
         "@boost//:signals2",
+        "@boost//:filesystem",
         "@boost//:smart_ptr",
         "@eigen",
     ],
@@ -69,6 +71,7 @@ pcl_library(
         "@boost//:optional",
         "@boost//:random",
         "@boost//:smart_ptr",
+        "@boost//:sort",
         "@eigen",
     ],
 )
@@ -379,6 +382,7 @@ pcl_library(
         "@boost//:math",
         "@boost//:random",
         "@boost//:smart_ptr",
+        "@boost//:multiprecision",
         "@eigen",
     ],
 )
@@ -466,7 +470,7 @@ pcl_library(
         "@boost//:dynamic_bitset",
         "@boost//:smart_ptr",
         "@eigen",
-        "@qhull//:libqhullcpp",
+        "@qhull//:qhull",
     ],
 )
 

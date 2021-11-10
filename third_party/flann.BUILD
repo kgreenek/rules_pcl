@@ -145,13 +145,13 @@ cc_library(
     name = "flann",
     srcs = glob([
         "src/cpp/**/*.cpp",
-    ], [
+    ],  exclude=[
         "src/cpp/flann/mpi/**/*"
     ]),
     hdrs = glob([
         "src/cpp/**/*.h",
         "src/cpp/**/*.hpp",
-    ], [
+    ], exclude=[
         "src/cpp/flann/mpi/**/*",
         "src/cpp/flann/io/hdf5.h",
     ]),

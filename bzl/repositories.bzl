@@ -52,9 +52,9 @@ def pcl_repositories():
         http_archive,
         name = "pcl",
         build_file = "@rules_pcl//third_party:pcl.BUILD",
-        sha256 = "85fd437a1b326de57d85d9862a1ca3e833301f8d78a1cafdbe48113ffd9f9168",
-        strip_prefix = "pcl-1d3622c1e624994bc013e3e66bc5d98fbb807a89",
-        urls = ["https://github.com/PointCloudLibrary/pcl/archive/1d3622c1e624994bc013e3e66bc5d98fbb807a89.tar.gz"],
+        sha256 = "4255c3d3572e9774b5a1dccc235711b7a723197b79430ef539c2044e9ce65954",
+        strip_prefix = "pcl-pcl-1.11.0",
+        urls = ["https://github.com/PointCloudLibrary/pcl/archive/refs/tags/pcl-1.11.0.tar.gz"],
     )
 
     _maybe_repo(
@@ -70,9 +70,9 @@ def pcl_repositories():
         http_archive,
         name = "flann",
         build_file = "@rules_pcl//third_party:flann.BUILD",
-        sha256 = "dfbb9321b0d687626a644c70872a2c540b16200e7f4c7bd72f91ae032f445c08",
-        strip_prefix = "flann-1.8.4-src",
-        urls = ["https://www.cs.ubc.ca/research/flann/uploads/FLANN/flann-1.8.4-src.zip"],
+        sha256 = "b23b5f4e71139faa3bcb39e6bbcc76967fbaf308c4ee9d4f5bfbeceaa76cc5d3",
+        strip_prefix = "flann-1.9.1",
+        urls = ["https://github.com/flann-lib/flann/archive/refs/tags/1.9.1.tar.gz"],
     )
 
     _maybe_repo(
