@@ -467,7 +467,7 @@ pcl_library(
         "@boost//:dynamic_bitset",
         "@boost//:smart_ptr",
         "@eigen",
-        "@qhull//:libqhullcpp",
+        "@qhull//:libqhull",
     ],
 )
 
