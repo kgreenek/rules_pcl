@@ -38,7 +38,7 @@ jobs:
           # no secrets are present in the container state or logs.
           install: |
             apt-get update -q -y
-            apt-get install -q -y curl
+            apt-get install -q -y curl gcc g++
             curl -sL https://github.com/bazelbuild/bazelisk/releases/download/v1.11.0/bazelisk-linux-arm64 -o /usr/bin/bazel
             chmod 755 /usr/bin/bazel
 
