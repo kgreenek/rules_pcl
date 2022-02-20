@@ -12,7 +12,8 @@ jobs:
           chmod 755 /tmp/bazel
           cd example
 
-      - run: /tmp/bazel test "@pcl//..."
+      - run: |
+          cd example && /tmp/bazel test "@pcl//..."
 
   test_embedded:
     runs-on: ubuntu-18.04
