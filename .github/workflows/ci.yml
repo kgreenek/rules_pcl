@@ -10,7 +10,6 @@ jobs:
       - run: |
           curl -sL https://github.com/bazelbuild/bazelisk/releases/download/v1.11.0/bazelisk-linux-amd64 -o /tmp/bazel
           chmod 755 /tmp/bazel
-          cd example
 
       - run: |
           cd example && /tmp/bazel test "@pcl//..."
@@ -38,23 +37,7 @@ jobs:
           arch: ${{ matrix.arch }}
           distro: ${{ matrix.distro }}
 
-          # Not required, but speeds up builds
-          githubToken: ${{ github.token }}
-
-          # The shell to run commands with in the container
-          shell: /bin/sh
-
-          # Install some dependencies in the container. This speeds up builds if
-          # you are also using githubToken. Any dependencies installed here will
-          # be part of the container image that gets cached, so subsequent
-          # builds don't have to re-install them. The image layer is cached
-          # publicly in your project's package repository, so it is vital that
-          # no secrets are present in the container state or logs.
-          install: |
-            apt-get update -q -y
-            apt-get install -q -y curl
-            curl -sL https://github.com/bazelbuild/bazelisk/releases/download/v1.11.0/bazelisk-linux-amd64 -o /usr/bin/bazel
-
           run: |
-            cd example
-            bazel test "@pcl//..."
+            curl -sL https://github.com/bazelbuild/bazelisk/releases/download/v1.11.0/bazelisk-linux-amd64 -o /tmp/bazel
+            chmod 755 /tmp/bazel
+            cd example && /tmp/bazel test "@pcl//..."
