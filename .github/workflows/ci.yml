@@ -1,7 +1,7 @@
 on: [push]
 
 jobs:
-  test:
+  build_x86-64:
     runs-on: ubuntu-18.04
     name: Build on ubuntu18.04 x86_64
 
@@ -13,9 +13,9 @@ jobs:
           cd example
 
       - run: |
-          cd example && /tmp/bazel test "@pcl//..."
+          cd example && /tmp/bazel build "@pcl//..." --verbose_failures --show_progress_rate_limit=10
 
-  test_embedded:
+  build_aarch64:
     runs-on: ubuntu-18.04
     name: Build on ubuntu18.04 aarch64
 
@@ -43,4 +43,4 @@ jobs:
             chmod 755 /usr/bin/bazel
 
           run: |
-            cd example && bazel test "@pcl//..."
+            cd example && bazel build "@pcl//..." --verbose_failures --show_progress_rate_limit=10
