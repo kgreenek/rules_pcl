@@ -8,11 +8,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2.1.0
       - run: |
-          curl -sL https://github.com/bazelbuild/bazelisk/releases/download/v1.11.0/bazelisk-linux-amd64 -o /usr/bin/bazel
+          curl -sL https://github.com/bazelbuild/bazelisk/releases/download/v1.11.0/bazelisk-linux-amd64 -o /tmp/bazel
+          chmod 755 /tmp/bazel
 
       - run: |
           cd example
-          bazel test "@pcl//..."
+          /tmp/bazel test "@pcl//..."
 
   test_embedded:
     runs-on: ubuntu-18.04
