@@ -3,7 +3,7 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-18.04
-    name: Build on ubuntu-18.04 x86_64
+    name: Build on ubuntu18.04 x86_64
 
     steps:
       - uses: actions/checkout@v2.1.0
@@ -17,26 +17,15 @@ jobs:
 
   test_embedded:
     runs-on: ubuntu-18.04
-    name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
-
-    strategy:
-      matrix:
-        include:
-          # nvidia jetson
-          - arch: aarch64
-            distro: ubuntu18.04
-          # raspberry pi
-          - arch: armv7
-            distro: ubuntu18.04
+    name: Build on ubuntu18.04 aarch64
 
     steps:
       - uses: actions/checkout@v2.1.0
       - uses: uraimo/run-on-arch-action@v2.1.1
         name: Build and run tests on embedded platforms
-        #id: build
         with:
-          arch: ${{ matrix.arch }}
-          distro: ${{ matrix.distro }}
+          arch: aarch64
+          distro: ubuntu18.04
 
           # Not required, but speeds up builds
           githubToken: ${{ github.token }}
@@ -50,7 +39,7 @@ jobs:
           install: |
             apt-get update -q -y
             apt-get install -q -y curl
-            curl -sL https://github.com/bazelbuild/bazelisk/releases/download/v1.11.0/bazelisk-linux-amd64 -o /usr/bin/bazel
+            curl -sL https://github.com/bazelbuild/bazelisk/releases/download/v1.11.0/bazelisk-linux-arm64 -o /usr/bin/bazel
             chmod 755 /usr/bin/bazel
 
           run: |
