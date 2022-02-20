@@ -1,4 +1,4 @@
-on: [push, pull_request]
+on: [push]
 
 jobs:
   test:
@@ -7,29 +7,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2.1.0
-        name: Build and run tests
-        id: build
-        with:
-          # Not required, but speeds up builds
-          githubToken: ${{ github.token }}
+      - run: |
+          apt-get update -q -y
+          apt-get install -q -y curl
+          curl -sL https://github.com/bazelbuild/bazelisk/releases/download/v1.11.0/bazelisk-linux-amd64 -o /usr/bin/bazel
 
-          # The shell to run commands with in the container
-          shell: /bin/sh
-
-          # Install some dependencies in the container. This speeds up builds if
-          # you are also using githubToken. Any dependencies installed here will
-          # be part of the container image that gets cached, so subsequent
-          # builds don't have to re-install them. The image layer is cached
-          # publicly in your project's package repository, so it is vital that
-          # no secrets are present in the container state or logs.
-          install: |
-            apt-get update -q -y
-            apt-get install -q -y curl
-            curl -sL https://github.com/bazelbuild/bazelisk/releases/download/v1.11.0/bazelisk-linux-amd64 -o /usr/bin/bazel
-
-          run: |
-            cd example
-            bazel test "@pcl//..."
+      - run: |
+          cd example
+          bazel test "@pcl//..."
 
   test_embedded:
     runs-on: ubuntu-18.04
@@ -48,8 +33,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2.1.0
       - uses: uraimo/run-on-arch-action@v2.1.1
-        name: Build and run tests
-        id: build
+        name: Build and run tests on embedded platforms
+        #id: build
         with:
           arch: ${{ matrix.arch }}
           distro: ${{ matrix.distro }}
