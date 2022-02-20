@@ -376,6 +376,7 @@ pcl_library(
         ":search",
         "@//:pcl_config",
         "@boost//:math",
+        "@boost//:multiprecision",  # See: https://github.com/kgreenek/rules_pcl/issues/4
         "@boost//:random",
         "@boost//:smart_ptr",
         "@eigen",
