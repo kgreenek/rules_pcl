@@ -5,11 +5,10 @@ def pcl_repositories():
     maybe(
         http_archive,
         name = "com_github_nelhage_rules_boost",
-        sha256 = "b64e6f7e96c5b0d7ebcb74c5ee29ab879b8ef8c37581ed0be5ff6c23168da985",
-        strip_prefix = "rules_boost-ed844db5990d21b75dc3553c057069f324b3916b",
-        urls = ["https://github.com/nelhage/rules_boost/archive/ed844db5990d21b75dc3553c057069f324b3916b.tar.gz"],
+        strip_prefix = "rules_boost-96e9b631f104b43a53c21c87b01ac538ad6f3b48",
+        urls = ["https://github.com/nelhage/rules_boost/archive/96e9b631f104b43a53c21c87b01ac538ad6f3b48.tar.gz"],
     )
-
+    
     maybe(
         http_archive,
         name = "eigen",
