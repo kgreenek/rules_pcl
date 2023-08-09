@@ -2,26 +2,30 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
 def pcl_repositories():
+    # Latest commit as of: June 20, 2023
     maybe(
         http_archive,
         name = "com_github_nelhage_rules_boost",
-        strip_prefix = "rules_boost-96e9b631f104b43a53c21c87b01ac538ad6f3b48",
-        urls = ["https://github.com/nelhage/rules_boost/archive/96e9b631f104b43a53c21c87b01ac538ad6f3b48.tar.gz"],
+        sha256 = "8d3b0100de31bfdc8cf3ac2b0ed10a0d87403707fa18cf384a103077655d6cf1",
+        strip_prefix = "rules_boost-84d2e305b0bc2dce19af4ddc2a8f76f84af4d3fa",
+        urls = ["https://github.com/nelhage/rules_boost/archive/84d2e305b0bc2dce19af4ddc2a8f76f84af4d3fa.tar.gz"],
     )
-    
+
+    maybe(
+        http_archive,
+        name = "com_google_googletest",
+        sha256 = "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
+        strip_prefix = "googletest-1.14.0",
+        urls = ["https://github.com/google/googletest/archive/refs/tags/v1.14.0.tar.gz"],
+    )
+
     maybe(
         http_archive,
         name = "eigen",
         build_file = "@rules_pcl//third_party:eigen.BUILD",
-        sha256 = "a8d87c8df67b0404e97bcef37faf3b140ba467bc060e2b883192165b319cea8d",
-        strip_prefix = "eigen-git-mirror-3.3.7",
-        # NOTE: The official repo is hosted on gitlab, but gitlab appears to return a 406 error when
-        # trying to fetch archives. So we are using the deprecated github mirror instead until
-        # either bazel or gitlab fixes this issue.
-        # See:
-        #  https://github.com/bazelbuild/bazel/issues/11187
-        #  https://stackoverflow.com/questions/60864626/cannot-fetch-eigen-with-bazel-406-not-acceptable
-        urls = ["https://github.com/eigenteam/eigen-git-mirror/archive/3.3.7.tar.gz"],
+        sha256 = "8586084f71f9bde545ee7fa6d00288b264a2b7ac3607b974e54d13e7162c1c72",
+        strip_prefix = "eigen-3.4.0",
+        urls = ["https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz"],
     )
 
     # Latest commit as of April 6, 2019
@@ -38,9 +42,9 @@ def pcl_repositories():
         http_archive,
         name = "lz4",
         build_file = "@rules_pcl//third_party:lz4.BUILD",
-        sha256 = "030644df4611007ff7dc962d981f390361e6c97a34e5cbc393ddfbe019ffe2c1",
-        strip_prefix = "lz4-1.9.3",
-        urls = ["https://github.com/lz4/lz4/archive/refs/tags/v1.9.3.tar.gz"],
+        sha256 = "0b0e3aa07c8c063ddf40b082bdf7e37a1562bda40a0ff5272957f3e987e0e54b",
+        strip_prefix = "lz4-1.9.4",
+        urls = ["https://github.com/lz4/lz4/archive/refs/tags/v1.9.4.tar.gz"],
     )
 
     maybe(
@@ -70,10 +74,10 @@ def pcl_repositories():
     maybe(
         http_archive,
         name = "pcl",
-	sha256 = "b52e1424686843c94c5771795a79d7a33296708ce23173a3f32769c30ee3a993",
+        sha256 = "8ab98a9db371d822de0859084a375a74bdc7f31c96d674147710cf4101b79621",
         build_file = "@rules_pcl//third_party:pcl.BUILD",
-        strip_prefix = "pcl-pcl-1.10.0",
-        urls = ["https://github.com/PointCloudLibrary/pcl/archive/refs/tags/pcl-1.10.0.zip"],
+        strip_prefix = "pcl-pcl-1.13.1",
+        urls = ["https://github.com/PointCloudLibrary/pcl/archive/refs/tags/pcl-1.13.1.tar.gz"],
     )
 
     maybe(

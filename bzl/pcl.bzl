@@ -24,7 +24,7 @@ _PCL_DEFAULT_COMPILER_CONFIG = {
 
 def _compiler_config_value(value, kwargs):
     # NOTE: __pcl_linux-aarch64 is defined by the pcl_config macro.
-    default_architecture_value =  select({
+    default_architecture_value = select({
         ":__pcl_linux-aarch64": _PCL_AARCH64_COMPILER_CONFIG[value],
         "//conditions:default": _PCL_DEFAULT_COMPILER_CONFIG[value],
     })
@@ -158,6 +158,7 @@ def pcl_library(name, **kwargs):
     native.cc_library(
         name = name,
         srcs = native.glob([
+            "{}/src/**/*.c".format(name),
             "{}/src/**/*.cpp".format(name),
             "{}/include/**/*.hpp".format(name),
         ], exclude = exclude_srcs),

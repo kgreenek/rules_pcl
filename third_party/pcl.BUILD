@@ -1,9 +1,9 @@
 # Description:
 #   Point Cloud Library (PCL) pointclouds.org
 
-licenses(["notice"])  # BSD 3-Clause
-
 load("@rules_pcl//bzl:pcl.bzl", "pcl_library")
+
+licenses(["notice"])  # BSD 3-Clause
 
 exports_files(["pcl_config.h.in"])
 
@@ -352,7 +352,12 @@ pcl_library(
 
 pcl_library(
     name = "registration",
-    exclude_srcs = ["registration/src/pairwise_graph_registration.cpp"],
+    exclude_hdrs = ["registration/include/pcl/registration/transformation_estimation_dq.h"],
+    exclude_srcs = [
+        "registration/include/pcl/registration/impl/transformation_estimation_dq.hpp",
+        "registration/src/pairwise_graph_registration.cpp",
+        "registration/src/transformation_estimation_dq.cpp",
+    ],
     deps = [
         ":common",
         ":features",
@@ -430,19 +435,6 @@ SURFACE_ON_NURBS_HDRS = [
     "surface/include/pcl/surface/on_nurbs",
 ]
 
-SURFACE_QHULL_SRCS = [
-    "surface/include/pcl/surface/impl/concave_hull.hpp",
-    "surface/include/pcl/surface/impl/convex_hull.hpp",
-    "surface/src/concave_hull.cpp",
-    "surface/src/convex_hull.cpp",
-]
-
-SURFACE_QHULL_HDRS = [
-    "surface/include/pcl/surface/concave_hull.h",
-    "surface/include/pcl/surface/convex_hull.h",
-    "surface/include/pcl/surface/qhull.h",
-]
-
 SURFACE_VTK_SRCS = ["surface/src/vtk_smoothing/**"]
 
 SURFACE_VTK_HDRS = ["surface/include/pcl/surface/vtk_smoothing/**"]
@@ -451,11 +443,9 @@ pcl_library(
     name = "surface",
     exclude_hdrs =
         SURFACE_ON_NURBS_HDRS +
-        #SURFACE_QHULL_HDRS +
         SURFACE_VTK_HDRS,
     exclude_srcs =
         SURFACE_ON_NURBS_SRCS +
-        #SURFACE_QHULL_SRCS +
         SURFACE_VTK_SRCS,
     deps = [
         ":common",
@@ -480,6 +470,14 @@ pcl_library(
         "@boost//:smart_ptr",
         "@eigen",
         "@flann",
+    ],
+)
+
+pcl_library(
+    name = "test",
+    deps = [
+        ":common",
+        "@com_google_googletest//:gtest",
     ],
 )
 
@@ -520,9 +518,9 @@ pcl_library(
 #    ],
 #)
 
-# --------------------------------------------------------------------------------------------------
+####################################################################################################
 # Examples
-# --------------------------------------------------------------------------------------------------
+####################################################################################################
 cc_binary(
     name = "common_example_copy_point_cloud",
     srcs = ["examples/common/example_copy_point_cloud.cpp"],
@@ -882,3 +880,808 @@ cc_binary(
 #        ":visualization",
 #    ],
 #)
+
+####################################################################################################
+# TESTS - All the fules below are generated using the gen_test_targests.py script.
+# NOTE: Any tests that require passing an argument to the command are excluded. So these shouldn't
+# be considered thorough tests, only a sanity check.
+####################################################################################################
+
+####################################################################################################
+# 2d tests
+####################################################################################################
+cc_test(
+    name = "2d_test_2d_keypoint_instantiation_with_precompile",
+    size = "small",
+    srcs = ["test/2d/keypoint_instantiation.cpp"],
+    deps = [
+        ":2d",
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "2d_test_2d_keypoint_instantiation_without_precompile",
+    size = "small",
+    srcs = ["test/2d/keypoint_instantiation.cpp"],
+    deps = [
+        ":2d",
+        ":common",
+        ":test",
+    ],
+)
+
+####################################################################################################
+# common tests
+####################################################################################################
+cc_test(
+    name = "common_test_wrappers",
+    size = "small",
+    srcs = ["test/common/test_wrappers.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_macros",
+    size = "small",
+    srcs = ["test/common/test_macros.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_vector_average",
+    size = "small",
+    srcs = ["test/common/test_vector_average.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_common",
+    size = "small",
+    srcs = ["test/common/test_common.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_pointcloud",
+    size = "small",
+    srcs = ["test/common/test_pointcloud.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_parse",
+    size = "small",
+    srcs = ["test/common/test_parse.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_geometry",
+    size = "small",
+    srcs = ["test/common/test_geometry.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_copy_point",
+    size = "small",
+    srcs = ["test/common/test_copy_point.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_transforms",
+    size = "small",
+    srcs = ["test/common/test_transforms.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_plane_intersection",
+    size = "small",
+    srcs = ["test/common/test_plane_intersection.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_pca",
+    size = "small",
+    srcs = ["test/common/test_pca.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_spring",
+    size = "small",
+    srcs = ["test/common/test_spring.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_gaussian",
+    size = "small",
+    srcs = ["test/common/test_gaussian.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_operators",
+    size = "small",
+    srcs = ["test/common/test_operators.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_eigen",
+    size = "large",
+    srcs = ["test/common/test_eigen.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_intensity",
+    size = "small",
+    srcs = ["test/common/test_intensity.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_generator",
+    size = "small",
+    srcs = ["test/common/test_generator.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_common_io",
+    size = "small",
+    srcs = ["test/common/test_io.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_copy_make_borders",
+    size = "small",
+    srcs = ["test/common/test_copy_make_borders.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_bearing_angle_image",
+    size = "small",
+    srcs = ["test/common/test_bearing_angle_image.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_polygon_mesh_concatenate",
+    size = "small",
+    srcs = ["test/common/test_polygon_mesh.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_common_point_type_conversion",
+    size = "small",
+    srcs = ["test/common/test_point_type_conversion.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_common_point_type_static_member_functions",
+    size = "small",
+    srcs = ["test/common/test_point_type_static_member_functions.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_colors",
+    size = "small",
+    srcs = ["test/common/test_colors.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "common_test_type_traits",
+    size = "small",
+    srcs = ["test/common/test_type_traits.cpp"],
+    deps = [
+        ":common",
+        ":test",
+    ],
+)
+
+####################################################################################################
+# features tests
+####################################################################################################
+cc_test(
+    name = "features_test_features_ptr",
+    size = "small",
+    srcs = ["test/features/test_ptr.cpp"],
+    deps = [
+        ":features",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_gradient_estimation",
+    size = "small",
+    srcs = ["test/features/test_gradient_estimation.cpp"],
+    deps = [
+        ":features",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_rift_estimation",
+    size = "small",
+    srcs = ["test/features/test_rift_estimation.cpp"],
+    deps = [
+        ":features",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_narf",
+    size = "small",
+    srcs = ["test/features/test_narf.cpp"],
+    deps = [
+        ":features",
+        ":test",
+        "@flann",
+    ],
+)
+
+cc_test(
+    name = "features_test_organized_edge_detection",
+    size = "small",
+    srcs = ["test/features/test_organized_edge_detection.cpp"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+####################################################################################################
+# filters tests
+####################################################################################################
+cc_test(
+    name = "filters_test_filters_grid_minimum",
+    size = "small",
+    srcs = ["test/filters/test_grid_minimum.cpp"],
+    deps = [
+        ":common",
+        ":filters",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "filters_test_morphological",
+    size = "small",
+    srcs = ["test/filters/test_morphological.cpp"],
+    deps = [
+        ":common",
+        ":filters",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "filters_test_filters_functor",
+    size = "small",
+    srcs = ["test/filters/test_functor_filter.cpp"],
+    deps = [
+        ":common",
+        ":filters",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "filters_test_filters_local_maximum",
+    size = "small",
+    srcs = ["test/filters/test_local_maximum.cpp"],
+    deps = [
+        ":common",
+        ":filters",
+        ":octree",
+        ":search",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "filters_test_uniform_sampling",
+    size = "small",
+    srcs = ["test/filters/test_uniform_sampling.cpp"],
+    deps = [
+        ":common",
+        ":filters",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "filters_test_convolution",
+    size = "small",
+    srcs = ["test/filters/test_convolution.cpp"],
+    deps = [
+        ":filters",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "filters_test_crop_hull",
+    size = "small",
+    srcs = ["test/filters/test_crop_hull.cpp"],
+    deps = [
+        ":filters",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "filters_test_clipper",
+    size = "small",
+    srcs = ["test/filters/test_clipper.cpp"],
+    deps = [
+        ":filters",
+        ":test",
+    ],
+)
+
+####################################################################################################
+# geometry tests
+####################################################################################################
+cc_test(
+    name = "geometry_test_iterator",
+    size = "small",
+    srcs = [
+        "test/geometry/test_iterator.cpp",
+        "test/geometry/test_mesh_common_functions.h",
+    ],
+    deps = [
+        ":geometry",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "geometry_test_mesh_circulators",
+    size = "small",
+    srcs = [
+        "test/geometry/test_mesh_circulators.cpp",
+        "test/geometry/test_mesh_common_functions.h",
+    ],
+    deps = [
+        ":geometry",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "geometry_test_mesh_conversion",
+    size = "small",
+    srcs = [
+        "test/geometry/test_mesh_common_functions.h",
+        "test/geometry/test_mesh_conversion.cpp",
+    ],
+    deps = [
+        ":geometry",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "geometry_test_mesh_data",
+    size = "small",
+    srcs = [
+        "test/geometry/test_mesh_common_functions.h",
+        "test/geometry/test_mesh_data.cpp",
+    ],
+    deps = [
+        ":geometry",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "geometry_test_mesh_get_boundary",
+    size = "small",
+    srcs = [
+        "test/geometry/test_mesh_common_functions.h",
+        "test/geometry/test_mesh_get_boundary.cpp",
+    ],
+    deps = [
+        ":geometry",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "geometry_test_mesh_indices",
+    size = "small",
+    srcs = [
+        "test/geometry/test_mesh_common_functions.h",
+        "test/geometry/test_mesh_indices.cpp",
+    ],
+    deps = [
+        ":geometry",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "geometry_test_mesh",
+    size = "small",
+    srcs = [
+        "test/geometry/test_mesh.cpp",
+        "test/geometry/test_mesh_common_functions.h",
+    ],
+    deps = [
+        ":geometry",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "geometry_test_polygon_mesh",
+    size = "small",
+    srcs = [
+        "test/geometry/test_mesh_common_functions.h",
+        "test/geometry/test_polygon_mesh.cpp",
+    ],
+    deps = [
+        ":geometry",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "geometry_test_quad_mesh",
+    size = "small",
+    srcs = [
+        "test/geometry/test_mesh_common_functions.h",
+        "test/geometry/test_quad_mesh.cpp",
+    ],
+    deps = [
+        ":geometry",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "geometry_test_triangle_mesh",
+    size = "small",
+    srcs = [
+        "test/geometry/test_mesh_common_functions.h",
+        "test/geometry/test_triangle_mesh.cpp",
+    ],
+    deps = [
+        ":geometry",
+        ":test",
+    ],
+)
+
+####################################################################################################
+# io tests
+####################################################################################################
+cc_test(
+    name = "io_test_timestamp",
+    size = "small",
+    srcs = ["test/io/test_timestamp.cpp"],
+    deps = [
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "io_test_io",
+    size = "medium",
+    srcs = ["test/io/test_io.cpp"],
+    deps = [
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "io_test_split",
+    size = "small",
+    srcs = ["test/io/test_split.cpp"],
+    deps = [
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "io_test_iterators",
+    size = "small",
+    srcs = ["test/io/test_iterators.cpp"],
+    deps = [
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "io_test_range_coder",
+    size = "small",
+    srcs = ["test/io/test_range_coder.cpp"],
+    deps = [
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "io_test_ply_io",
+    size = "small",
+    srcs = ["test/io/test_ply_io.cpp"],
+    deps = [
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "io_test_point_cloud_image_extractors",
+    size = "small",
+    srcs = ["test/io/test_point_cloud_image_extractors.cpp"],
+    deps = [
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "io_test_buffers",
+    size = "small",
+    srcs = ["test/io/test_buffers.cpp"],
+    deps = [
+        ":common",
+        ":io",
+        ":test",
+    ],
+)
+
+####################################################################################################
+# ml tests
+####################################################################################################
+cc_test(
+    name = "ml_test_ml_kmeans",
+    size = "small",
+    srcs = ["test/ml/test_kmeans.cpp"],
+    deps = [
+        ":common",
+        ":ml",
+        ":test",
+    ],
+)
+
+####################################################################################################
+# octree tests
+####################################################################################################
+cc_test(
+    name = "octree_test_octree",
+    size = "small",
+    srcs = ["test/octree/test_octree.cpp"],
+    deps = [
+        ":common",
+        ":octree",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "octree_test_octree_iterator",
+    size = "small",
+    srcs = ["test/octree/test_octree_iterator.cpp"],
+    deps = [
+        ":common",
+        ":octree",
+        ":test",
+    ],
+)
+
+####################################################################################################
+# registration tests
+####################################################################################################
+cc_test(
+    name = "registration_test_warps",
+    size = "small",
+    srcs = ["test/registration/test_warps.cpp"],
+    deps = [
+        ":registration",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "registration_test_correspondence_estimation",
+    size = "small",
+    srcs = ["test/registration/test_correspondence_estimation.cpp"],
+    deps = [
+        ":features",
+        ":io",
+        ":registration",
+        ":test",
+    ],
+)
+
+####################################################################################################
+# sample_consensus tests
+####################################################################################################
+cc_test(
+    name = "sample_consensus_test_sample_consensus",
+    size = "small",
+    srcs = ["test/sample_consensus/test_sample_consensus.cpp"],
+    deps = [
+        ":common",
+        ":sample_consensus",
+        ":search",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "sample_consensus_test_sample_consensus_quadric_models",
+    size = "small",
+    srcs = ["test/sample_consensus/test_sample_consensus_quadric_models.cpp"],
+    deps = [
+        ":sample_consensus",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "sample_consensus_test_sample_consensus_line_models",
+    size = "small",
+    srcs = ["test/sample_consensus/test_sample_consensus_line_models.cpp"],
+    deps = [
+        ":sample_consensus",
+        ":test",
+    ],
+)
+
+####################################################################################################
+# search tests
+####################################################################################################
+cc_test(
+    name = "search_test_kdtree_search",
+    size = "small",
+    srcs = [
+        "test/search/precise_distances.h",
+        "test/search/test_kdtree.cpp",
+    ],
+    deps = [
+        ":kdtree",
+        ":search",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "search_test_flann_search",
+    size = "small",
+    srcs = [
+        "test/search/precise_distances.h",
+        "test/search/test_flann_search.cpp",
+    ],
+    deps = [
+        ":kdtree",
+        ":search",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "search_test_organized_search",
+    size = "small",
+    srcs = [
+        "test/search/precise_distances.h",
+        "test/search/test_organized.cpp",
+    ],
+    deps = [
+        ":kdtree",
+        ":search",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "search_test_octree_search",
+    size = "small",
+    srcs = [
+        "test/search/precise_distances.h",
+        "test/search/test_octree.cpp",
+    ],
+    deps = [
+        ":common",
+        ":octree",
+        ":search",
+        ":test",
+    ],
+)

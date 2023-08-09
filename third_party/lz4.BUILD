@@ -15,9 +15,7 @@ cc_library(
         "lib/lz4hc.h",
         "lib/xxhash.h",
     ],
-    include_prefix = "lz4",
     includes = ["lib"],
-    strip_include_prefix = "lib",
     # This c file is included by lib/lz4hc.c
     textual_hdrs = ["lib/lz4.c"],
     visibility = ["//visibility:public"],
