@@ -1,8 +1,10 @@
 # Helpful flags: https://blog.aspect.dev/bazelrc-flags
 
 # Build in release mode with debug symbols by default.
-build --compilation_mode opt
-build --copt -g
+# These are disabled for quicker build-times in CI, but in your code you almost definitely want to
+# set -c opt.
+#build --compilation_mode opt
+#build --copt -g
 
 build --keep_going
 # Fix the wrong default to generate __init__.py to delimit a Python package.
