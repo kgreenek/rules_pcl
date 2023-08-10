@@ -13,7 +13,6 @@ pcl_library(
     deps = [
         ":common",
         ":filters",
-        "@boost//:smart_ptr",
     ],
 )
 
@@ -22,17 +21,13 @@ pcl_library(
     deps = [
         "@//:pcl_config",
         "@boost//:algorithm",
-        "@boost//:cstdint",
         "@boost//:current_function",
-        "@boost//:date_time",
-        "@boost//:foreach",
+        "@boost//:filesystem",
         "@boost//:fusion",
         "@boost//:mpl",
-        "@boost//:optional",
         "@boost//:predef",
         "@boost//:preprocessor",
         "@boost//:signals2",
-        "@boost//:smart_ptr",
         "@eigen",
     ],
 )
@@ -48,7 +43,6 @@ pcl_library(
         ":search",
         "@boost//:graph",
         "@boost//:property_map",
-        "@boost//:smart_ptr",
         "@eigen",
     ],
 )
@@ -67,7 +61,7 @@ pcl_library(
         "@boost//:mpl",
         "@boost//:optional",
         "@boost//:random",
-        "@boost//:smart_ptr",
+        "@boost//:sort",
         "@eigen",
     ],
 )
@@ -76,9 +70,7 @@ pcl_library(
     name = "geometry",
     deps = [
         ":common",
-        "@boost//:concept_check",
         "@boost//:operators",
-        "@boost//:smart_ptr",
         "@boost//:version",
         "@eigen",
     ],
@@ -86,12 +78,7 @@ pcl_library(
 
 pcl_library(
     name = "ml",
-    deps = [
-        ":common",
-        "@boost//:intrusive",
-        "@boost//:smart_ptr",
-        "@eigen",
-    ],
+    deps = [":common"],
 )
 
 # TODO(kgreenek): This one is going to be hard because it depends on a lot of the external
@@ -203,8 +190,6 @@ pcl_library(
         "@boost//:asio",
         "@boost//:circular_buffer",
         "@boost//:core",
-        "@boost//:date_time",
-        "@boost//:exception",
         "@boost//:filesystem",
         "@boost//:foreach",
         "@boost//:format",
@@ -215,11 +200,12 @@ pcl_library(
         "@boost//:mpl",
         "@boost//:multiprecision",  # See: https://github.com/kgreenek/rules_pcl/issues/4
         "@boost//:numeric_conversion",
+        "@boost//:predef",
         "@boost//:property_tree",
         "@boost//:signals2",
         "@boost//:smart_ptr",
-        "@boost//:system",
         "@boost//:tokenizer",
+        "@boost//:utility",
         "@boost//:version",
         "@org_libpng_libpng//:libpng",
     ],
@@ -229,7 +215,6 @@ pcl_library(
     name = "kdtree",
     deps = [
         ":common",
-        "@boost//:smart_ptr",
         "@flann",
     ],
 )
@@ -239,9 +224,10 @@ pcl_library(
     deps = [
         ":common",
         ":features",
+        ":filters",
         ":octree",
+        ":search",
         "@//:pcl_config",
-        "@boost//:smart_ptr",
         "@eigen",
     ],
 )
@@ -251,9 +237,6 @@ pcl_library(
     deps = [
         ":common",
         "@boost//:graph",
-        "@boost//:smart_ptr",
-        "@boost//:tuple",
-        "@eigen",
     ],
 )
 
@@ -264,16 +247,14 @@ pcl_library(
 #    exclude_hdrs = ["outofcore/include/pcl/outofcore/visualization/**"],
 #    deps = [
 #        ":common",
-#        ":io",
 #        ":filters",
+#        ":io",
 #        ":octree",
-#        "@boost//:core",
+#        ":visualization",
 #        "@boost//:filesystem",
 #        "@boost//:foreach",
 #        "@boost//:random",
-#        "@boost//:smart_ptr",
 #        "@boost//:uuid",
-#        "@eigen//:eigen",
 #    ],
 #)
 #
@@ -284,9 +265,7 @@ pcl_library(
 #        ":outofcore",
 #        "@boost//:accumulators",
 #        "@boost//:algorithm",
-#        "@boost//:filesystem",
 #        "@boost//:foreach",
-#        "@eigen//:eigen",
 #    ],
 #)
 #
@@ -294,10 +273,10 @@ pcl_library(
 #    name = "outofcore_process",
 #    srcs = ["outofcore/tools/outofcore_process.cpp"],
 #    deps = [
+#        ":common",
+#        ":io",
 #        ":outofcore",
-#        "@boost//:filesystem",
 #        "@boost//:foreach",
-#        "@eigen//:eigen",
 #    ],
 #)
 #
@@ -305,29 +284,25 @@ pcl_library(
 #    name = "outofcore_viewer",
 #    srcs = ["outofcore/tools/outofcore_viewer.cpp"],
 #    deps = [
+#        ":common",
+#        ":io",
 #        ":outofcore",
 #        ":visualization",
-#        "@boost//:date_time",
 #        "@boost//:filesystem",
-#        "@eigen//:eigen",
-#        "vtk",
 #    ],
 #)
 
 pcl_library(
     name = "people",
+    # This file depends on ":visualization".
+    exclude_hdrs = ["include/pcl/people/person_cluster.h"],
     deps = [
         ":common",
-        ":features",
         ":filters",
-        ":geometry",
-        ":io",
         ":kdtree",
-        ":octree",
         ":sample_consensus",
-        ":search",
         ":segmentation",
-        "@eigen",
+        #":visualization",
     ],
 )
 
@@ -336,7 +311,9 @@ pcl_library(
     deps = [
         ":common",
         ":features",
+        ":filters",
         ":io",
+        ":kdtree",
         ":ml",
         ":registration",
         ":search",
@@ -344,8 +321,6 @@ pcl_library(
         "@boost//:filesystem",
         "@boost//:graph",
         "@boost//:random",
-        "@boost//:smart_ptr",
-        "@boost//:unordered",
         "@eigen",
     ],
 )
@@ -363,11 +338,11 @@ pcl_library(
         ":features",
         ":filters",
         ":kdtree",
-        ":octree",
         ":sample_consensus",
         ":search",
         "@boost//:core",
         "@boost//:graph",
+        "@boost//:noncopyable",
         "@boost//:property_map",
         "@boost//:smart_ptr",
         "@eigen",
@@ -383,7 +358,6 @@ pcl_library(
         "@boost//:math",
         "@boost//:multiprecision",  # See: https://github.com/kgreenek/rules_pcl/issues/4
         "@boost//:random",
-        "@boost//:smart_ptr",
         "@eigen",
     ],
 )
@@ -395,20 +369,15 @@ pcl_library(
         ":features",
         ":filters",
         ":geometry",
-        ":kdtree",
         ":ml",
         ":octree",
         ":sample_consensus",
         ":search",
         "@boost//:bimap",
         "@boost//:concept",
-        "@boost//:current_function",
         "@boost//:graph",
         "@boost//:multi_array",
-        "@boost//:property_map",
         "@boost//:ptr_container",
-        "@boost//:smart_ptr",
-        "@boost//:tuple",
         "@boost//:version",
         "@eigen",
         "@flann",
@@ -420,8 +389,6 @@ pcl_library(
     deps = [
         ":common",
         ":io",
-        "@boost//:signals2",
-        "@eigen",
     ],
 )
 
@@ -455,9 +422,9 @@ pcl_library(
         "@//:pcl_config",
         "@boost//:current_function",
         "@boost//:dynamic_bitset",
-        "@boost//:smart_ptr",
         "@eigen",
         "@qhull//:libqhull",
+        "@qhull//:libqhull_r",
     ],
 )
 
@@ -467,7 +434,6 @@ pcl_library(
         ":common",
         ":kdtree",
         ":octree",
-        "@boost//:smart_ptr",
         "@eigen",
         "@flann",
     ],
@@ -486,12 +452,8 @@ pcl_library(
     deps = [
         ":common",
         ":filters",
-        ":kdtree",
         ":octree",
         ":search",
-        "@boost//:random",
-        "@boost//:smart_ptr",
-        "@eigen",
     ],
 )
 
@@ -501,20 +463,22 @@ pcl_library(
 #    name = "visualization",
 #    deps = [
 #        ":common",
+#        ":filters",
+#        ":features",
 #        ":geometry",
 #        ":io",
 #        ":kdtree",
-#        ":octree",
+#        ":registration",
 #        ":search",
 #        "@//:pcl_config",
 #        "@boost//:algorithm",
-#        "@boost//:date_time",
-#        "@boost//:filesystem",
 #        "@boost//:foreach",
+#        "@boost//:filesystem",
 #        "@boost//:signals2",
 #        "@boost//:smart_ptr",
+#        "@boost//:version",
 #        "@boost//:uuid",
-#        "@eigen//:eigen",
+#        "@eigen",
 #    ],
 #)
 
@@ -522,8 +486,26 @@ pcl_library(
 # Examples
 ####################################################################################################
 cc_binary(
+    name = "common_example_check_if_point_is_valid",
+    srcs = ["examples/common/example_check_if_point_is_valid.cpp"],
+    deps = [":common"],
+)
+
+cc_binary(
     name = "common_example_copy_point_cloud",
     srcs = ["examples/common/example_copy_point_cloud.cpp"],
+    deps = [":common"],
+)
+
+cc_binary(
+    name = "common_example_get_max_min_coordinates",
+    srcs = ["examples/common/example_get_max_min_coordinates.cpp"],
+    deps = [":io"],
+)
+
+cc_binary(
+    name = "common_example_organized_point_cloud",
+    srcs = ["examples/common/example_organized_point_cloud.cpp"],
     deps = [":common"],
 )
 
@@ -534,21 +516,15 @@ cc_binary(
 )
 
 cc_binary(
-    name = "common_example_organized_point_cloud",
-    srcs = ["examples/common/example_organized_point_cloud.cpp"],
-    deps = [":common"],
-)
-
-cc_binary(
-    name = "common_example_check_if_point_is_valid",
-    srcs = ["examples/common/example_check_if_point_is_valid.cpp"],
-    deps = [":common"],
-)
-
-cc_binary(
-    name = "common_example_get_max_min_coordinates",
-    srcs = ["examples/common/example_get_max_min_coordinates.cpp"],
-    deps = [":io"],
+    name = "features_example_difference_of_normals",
+    srcs = ["examples/features/example_difference_of_normals.cpp"],
+    deps = [
+        ":common",
+        ":features",
+        ":filters",
+        ":io",
+        ":segmentation",
+    ],
 )
 
 cc_binary(
@@ -588,6 +564,30 @@ cc_binary(
 )
 
 cc_binary(
+    name = "features_example_principal_curvatures_estimation",
+    srcs = ["examples/features/example_principal_curvatures_estimation.cpp"],
+    deps = [
+        ":common",
+        ":features",
+        ":io",
+        ":kdtree",
+        ":search",
+    ],
+)
+
+cc_binary(
+    name = "features_example_rift_estimation",
+    srcs = ["examples/features/example_rift_estimation.cpp"],
+    deps = [
+        ":common",
+        ":features",
+        ":io",
+        ":kdtree",
+        ":search",
+    ],
+)
+
+cc_binary(
     name = "features_example_shape_contexts",
     srcs = ["examples/features/example_shape_contexts.cpp"],
     deps = [
@@ -612,34 +612,8 @@ cc_binary(
 )
 
 cc_binary(
-    name = "features_example_rift_estimation",
-    srcs = ["examples/features/example_rift_estimation.cpp"],
-    deps = [
-        ":common",
-        ":features",
-        ":io",
-        ":kdtree",
-        ":search",
-    ],
-)
-
-cc_binary(
-    name = "features_example_difference_of_normals",
-    srcs = ["examples/features/example_difference_of_normals.cpp"],
-    deps = [
-        ":common",
-        ":features",
-        ":io",
-        ":kdtree",
-        ":sample_consensus",
-        ":search",
-        ":segmentation",
-    ],
-)
-
-cc_binary(
-    name = "filters_example_remove_nan_from_point_cloud",
-    srcs = ["examples/filters/example_remove_nan_from_point_cloud.cpp"],
+    name = "filters_example_extract_indices",
+    srcs = ["examples/filters/example_extract_indices.cpp"],
     deps = [
         ":common",
         ":filters",
@@ -647,8 +621,8 @@ cc_binary(
 )
 
 cc_binary(
-    name = "filters_example_extract_indices",
-    srcs = ["examples/filters/example_extract_indices.cpp"],
+    name = "filters_example_remove_nan_from_point_cloud",
+    srcs = ["examples/filters/example_remove_nan_from_point_cloud.cpp"],
     deps = [
         ":common",
         ":filters",
@@ -664,42 +638,6 @@ cc_binary(
     ],
 )
 
-# TODO(kgreenek): Finish this once the visualization lib is done.
-#cc_binary(
-#    name = "keypoints_example_sift_keypoint_estimation",
-#    srcs = ["examples/keypoints/example_sift_keypoint_estimation.cpp"],
-#    deps = [
-#        ":common",
-#        ":io",
-#        ":keypoints",
-#        ":visualization",
-#    ],
-#)
-
-# TODO(kgreenek): Finish this once the visualization lib is done.
-#cc_binary(
-#    name = "keypoints_example_sift_normal_keypoint_estimation",
-#    srcs = ["examples/keypoints/example_sift_normal_keypoint_estimation.cpp"],
-#    deps = [
-#        ":common",
-#        ":io",
-#        ":keypoints",
-#        ":visualization",
-#    ],
-#)
-
-# TODO(kgreenek): Finish this once the visualization lib is done.
-#cc_binary(
-#    name = "keypoints_example_sift_z_keypoint_estimation",
-#    srcs = ["examples/keypoints/example_sift_z_keypoint_estimation.cpp"],
-#    deps = [
-#        ":common",
-#        ":io",
-#        ":keypoints",
-#        ":visualization",
-#    ],
-#)
-
 cc_binary(
     name = "keypoints_example_get_keypoints_indices",
     srcs = ["examples/keypoints/example_get_keypoints_indices.cpp"],
@@ -710,18 +648,35 @@ cc_binary(
     ],
 )
 
-# TODO(kgreenek): Finish this once the visualization lib is done.
-#cc_binary(
-#    name = "outofcore_example_outofcore_with_lod",
-#    srcs = ["examples/outofcore/example_outofcore_with_lod.cpp"],
-#    deps = [
-#        ":common",
-#        ":filters",
-#        ":io",
-#        ":octree",
-#        ":outofcore",
-#    ],
-#)
+cc_binary(
+    name = "keypoints_example_sift_keypoint_estimation",
+    srcs = ["examples/keypoints/example_sift_keypoint_estimation.cpp"],
+    deps = [
+        ":common",
+        ":io",
+        ":keypoints",
+    ],
+)
+
+cc_binary(
+    name = "keypoints_example_sift_normal_keypoint_estimation",
+    srcs = ["examples/keypoints/example_sift_normal_keypoint_estimation.cpp"],
+    deps = [
+        ":common",
+        ":io",
+        ":keypoints",
+    ],
+)
+
+cc_binary(
+    name = "keypoints_example_sift_z_keypoint_estimation",
+    srcs = ["examples/keypoints/example_sift_z_keypoint_estimation.cpp"],
+    deps = [
+        ":common",
+        ":io",
+        ":keypoints",
+    ],
+)
 
 # TODO(kgreenek): Finish this once the visualization lib is done.
 #cc_binary(
@@ -729,58 +684,19 @@ cc_binary(
 #    srcs = ["examples/outofcore/example_outofcore.cpp"],
 #    deps = [
 #        ":common",
-#        ":filters",
 #        ":io",
-#        ":octree",
 #        ":outofcore",
 #    ],
 #)
 
-cc_binary(
-    name = "segmentation_example_extract_clusters_normals",
-    srcs = ["examples/segmentation/example_extract_clusters_normals.cpp"],
-    deps = [
-        ":common",
-        ":io",
-        ":keypoints",
-        ":segmentation",
-    ],
-)
-
-cc_binary(
-    name = "segmentation_example_region_growing",
-    srcs = ["examples/segmentation/example_region_growing.cpp"],
-    deps = [
-        ":common",
-        ":io",
-        ":keypoints",
-        ":segmentation",
-    ],
-)
-
 # TODO(kgreenek): Finish this once the visualization lib is done.
 #cc_binary(
-#    name = "segmentation_example_supervoxels",
-#    srcs = ["examples/segmentation/example_supervoxels.cpp"],
-#    deps = [
-#        ":common",
-#        ":features",
-#        ":kdtree",
-#        ":octree",
-#        ":segmentation",
-#        ":visualization",
-#    ],
-#)
-
-# TODO(kgreenek): Finish this once the visualization lib is done.
-#cc_binary(
-#    name = "segmentation_example_lccp_segmentation",
-#    srcs = ["examples/segmentation/example_lccp_segmentation.cpp"],
+#    name = "outofcore_example_outofcore_with_lod",
+#    srcs = ["examples/outofcore/example_outofcore_with_lod.cpp"],
 #    deps = [
 #        ":common",
 #        ":io",
-#        ":segmentation",
-#        ":visualization",
+#        ":outofcore",
 #    ],
 #)
 
@@ -791,7 +707,55 @@ cc_binary(
 #    deps = [
 #        ":common",
 #        ":io",
-#        ":sample_consensur",
+#        ":segmentation",
+#        ":visualization",
+#        "@boost//:format",
+#    ],
+#)
+
+cc_binary(
+    name = "segmentation_example_extract_clusters_normals",
+    srcs = ["examples/segmentation/example_extract_clusters_normals.cpp"],
+    deps = [
+        ":common",
+        ":features",
+        ":io",
+        ":segmentation",
+    ],
+)
+
+# TODO(kgreenek): Finish this once the visualization lib is done.
+#cc_binary(
+#    name = "segmentation_example_lccp_segmentation",
+#    srcs = ["examples/segmentation/example_lccp_segmentation.cpp"],
+#    deps = [
+#        ":common",
+#        ":io",
+#        ":segmentation",
+#        ":visualization",
+#        "@boost//:format",
+#    ],
+#)
+
+cc_binary(
+    name = "segmentation_example_region_growing",
+    srcs = ["examples/segmentation/example_region_growing.cpp"],
+    deps = [
+        ":common",
+        ":features",
+        ":filters",
+        ":io",
+        ":segmentation",
+    ],
+)
+
+# TODO(kgreenek): Finish this once the visualization lib is done.
+#cc_binary(
+#    name = "segmentation_example_supervoxels",
+#    srcs = ["examples/segmentation/example_supervoxels.cpp"],
+#    deps = [
+#        ":common",
+#        ":io",
 #        ":segmentation",
 #        ":visualization",
 #    ],
@@ -811,44 +775,20 @@ cc_binary(
 
 # TODO(kgreenek): Finish this once the visualization lib is done.
 #cc_binary(
-#    name = "surface_test_nurbs_fitting_surface",
-#    srcs = ["examples/surface/test_nurbs_fitting_surface.cpp"],
-#    deps = [
-#        ":common",
-#        ":io",
-#        ":surface",
-#        ":visualization",
-#    ],
-#)
-
-# TODO(kgreenek): Finish this once the visualization lib is done.
-#cc_binary(
-#    name = "surface_example_nurbs_fitting_surface",
-#    srcs = ["examples/surface/example_nurbs_fitting_surface.cpp"],
-#    deps = [
-#        ":common",
-#        ":io",
-#        ":surface",
-#        ":visualization",
-#    ],
-#)
-
-# TODO(kgreenek): Finish this once the visualization lib is done.
-#cc_binary(
-#    name = "surface_example_nurbs_viewer_surface",
-#    srcs = ["examples/surface/example_nurbs_viewer_surface.cpp"],
-#    deps = [
-#        ":common",
-#        ":io",
-#        ":surface",
-#        ":visualization",
-#    ],
-#)
-
-# TODO(kgreenek): Finish this once the visualization lib is done.
-#cc_binary(
 #    name = "surface_example_nurbs_fitting_closed_curve",
 #    srcs = ["examples/surface/example_nurbs_fitting_closed_curve.cpp"],
+#    deps = [
+#        ":common",
+#        ":io",
+#        ":surface",
+#        ":visualization",
+#    ],
+#)
+
+# TODO(kgreenek): Finish this once the visualization lib is done.
+#cc_binary(
+#    name = "surface_example_nurbs_fitting_closed_curve3d",
+#    srcs = ["examples/surface/example_nurbs_fitting_closed_curve3d.cpp"],
 #    deps = [
 #        ":common",
 #        ":io",
@@ -871,11 +811,33 @@ cc_binary(
 
 # TODO(kgreenek): Finish this once the visualization lib is done.
 #cc_binary(
-#    name = "surface_example_nurbs_fitting_closed_curve3d",
-#    srcs = ["examples/surface/example_nurbs_fitting_closed_curve3d.cpp"],
+#    name = "surface_test_nurbs_fitting_surface",
+#    srcs = ["examples/surface/test_nurbs_fitting_surface.cpp"],
 #    deps = [
 #        ":common",
 #        ":io",
+#        ":surface",
+#        ":visualization",
+#    ],
+#)
+
+# TODO(kgreenek): Finish this once the visualization lib is done.
+#cc_binary(
+#    name = "surface_example_nurbs_viewer_surface",
+#    srcs = ["examples/surface/example_nurbs_viewer_surface.cpp"],
+#    deps = [
+#        ":common",
+#        ":surface",
+#        ":visualization",
+#    ],
+#)
+
+# TODO(kgreenek): Finish this once the visualization lib is done.
+#cc_binary(
+#    name = "surface_test_nurbs_fitting_surface",
+#    srcs = ["examples/surface/test_nurbs_fitting_surface.cpp"],
+#    deps = [
+#        ":common",
 #        ":surface",
 #        ":visualization",
 #    ],
