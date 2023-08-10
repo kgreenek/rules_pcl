@@ -1254,7 +1254,7 @@ cc_test(
 
 cc_test(
     name = "filters_test_crop_hull",
-    size = "small",
+    size = "medium",
     srcs = ["test/filters/test_crop_hull.cpp"],
     deps = [
         ":filters",

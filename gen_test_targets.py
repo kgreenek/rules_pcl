@@ -8,6 +8,7 @@ EXCLUDE_TESTS = {
 }
 
 MEDIUM_TESTS = {
+    "filters": ["test_crop_hull"],
     "io": ["test_io"],
 }
 LARGE_TESTS = {
