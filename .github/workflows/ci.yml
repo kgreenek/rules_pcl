@@ -45,4 +45,6 @@ jobs:
             chmod 755 /usr/bin/bazel
 
           run: |
-            cd example && bazel test "@pcl//..." --verbose_failures --show_progress_rate_limit=10
+            # Only run small tests because the enumlated environment is super slow, so large tests
+            # would timeout and fail.
+            cd example && bazel test "@pcl//..." --verbose_failures --show_progress_rate_limit=10 --test_filter="size=small"

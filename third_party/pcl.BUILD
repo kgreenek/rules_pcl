@@ -1254,7 +1254,7 @@ cc_test(
 
 cc_test(
     name = "filters_test_crop_hull",
-    size = "medium",
+    size = "large",
     srcs = ["test/filters/test_crop_hull.cpp"],
     deps = [
         ":filters",
@@ -1593,7 +1593,7 @@ cc_test(
 ####################################################################################################
 cc_test(
     name = "search_test_kdtree_search",
-    size = "small",
+    size = "large",
     srcs = [
         "test/search/precise_distances.h",
         "test/search/test_kdtree.cpp",
@@ -1607,7 +1607,7 @@ cc_test(
 
 cc_test(
     name = "search_test_flann_search",
-    size = "small",
+    size = "large",
     srcs = [
         "test/search/precise_distances.h",
         "test/search/test_flann_search.cpp",

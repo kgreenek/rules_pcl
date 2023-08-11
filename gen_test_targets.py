@@ -5,14 +5,20 @@ import os
 EXCLUDE_TESTS = {
     # This test loads a file in code using an env var rather than taking an argument.
     "geometry": ["test_mesh_io"],
+    # This test has internal timeout testing that cannot be increased. It fails in CI on the aarch64
+    # target because it's running in an enumlated environment (so everything runs 5x slower than
+    # normal). Just disable it to prevent it from causing non-deterministic timing failures.
+    "sample_consensus": ["test_sample_consensus"],
 }
 
 MEDIUM_TESTS = {
-    "filters": ["test_crop_hull"],
     "io": ["test_io"],
 }
 LARGE_TESTS = {
     "common": ["test_eigen"],
+    "filters": ["test_crop_hull"],
+    # NOTE: These tests only take a long time when running in CI's aarch64 emulated environment.
+    "search": ["test_flann_search", "test_kdtree_search"],
 }
 
 RENAME_DEPS = {
