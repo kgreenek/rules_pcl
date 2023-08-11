@@ -2,13 +2,15 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
 def pcl_repositories():
-    # Latest commit as of: June 20, 2023
+    # Latest commit as of: Dec 23, 2023
+    # NOTE: We cannot update beyond this commit without breaking aarch64 support due to lzma.
+    # See: https://github.com/nelhage/rules_boost/issues/374
     maybe(
         http_archive,
         name = "com_github_nelhage_rules_boost",
-        sha256 = "8d3b0100de31bfdc8cf3ac2b0ed10a0d87403707fa18cf384a103077655d6cf1",
-        strip_prefix = "rules_boost-84d2e305b0bc2dce19af4ddc2a8f76f84af4d3fa",
-        urls = ["https://github.com/nelhage/rules_boost/archive/84d2e305b0bc2dce19af4ddc2a8f76f84af4d3fa.tar.gz"],
+        sha256 = "490d11425393eed068966a4990ead1ff07c658f823fd982fddac67006ccc44ab",
+        strip_prefix = "rules_boost-57c99395e15720e287471d79178d36a85b64d6f6",
+        urls = ["https://github.com/nelhage/rules_boost/archive/57c99395e15720e287471d79178d36a85b64d6f6.tar.gz"],
     )
 
     maybe(
