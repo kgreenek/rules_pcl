@@ -16,8 +16,9 @@ MEDIUM_TESTS = {
 }
 LARGE_TESTS = {
     "common": ["test_eigen"],
+    # NOTE: The below tests only take a long time when running in CI's aarch64 emulated environment.
     "filters": ["test_crop_hull"],
-    # NOTE: These tests only take a long time when running in CI's aarch64 emulated environment.
+    "octree": ["test_test_octree"],
     "search": ["test_flann_search", "test_kdtree_search"],
 }
 

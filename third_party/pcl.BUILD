@@ -1508,7 +1508,7 @@ cc_test(
 ####################################################################################################
 cc_test(
     name = "octree_test_octree",
-    size = "small",
+    size = "large",
     srcs = ["test/octree/test_octree.cpp"],
     deps = [
         ":common",
