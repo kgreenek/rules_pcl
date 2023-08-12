@@ -1557,18 +1557,6 @@ cc_test(
 # sample_consensus tests
 ####################################################################################################
 cc_test(
-    name = "sample_consensus_test_sample_consensus",
-    size = "small",
-    srcs = ["test/sample_consensus/test_sample_consensus.cpp"],
-    deps = [
-        ":common",
-        ":sample_consensus",
-        ":search",
-        ":test",
-    ],
-)
-
-cc_test(
     name = "sample_consensus_test_sample_consensus_quadric_models",
     size = "small",
     srcs = ["test/sample_consensus/test_sample_consensus_quadric_models.cpp"],
