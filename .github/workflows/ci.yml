@@ -2,30 +2,32 @@ on: [push]
 
 jobs:
   build_x86-64:
-    runs-on: ubuntu-18.04
-    name: Build on ubuntu18.04 x86_64
+    name: Build on ubuntu22.04 x86_64
+    runs-on: ubuntu-22.04
+    timeout-minutes: 720
 
     steps:
-      - uses: actions/checkout@v2.1.0
+      - uses: actions/checkout@v3.5.3
       - run: |
           curl -sL https://github.com/bazelbuild/bazelisk/releases/download/v1.11.0/bazelisk-linux-amd64 -o /tmp/bazel
           chmod 755 /tmp/bazel
           cd example
 
       - run: |
-          cd example && /tmp/bazel build "@pcl//..." --verbose_failures --show_progress_rate_limit=10
+          cd example && /tmp/bazel test "@pcl//..." --verbose_failures --show_progress_rate_limit=10
 
   build_aarch64:
-    runs-on: ubuntu-18.04
-    name: Build on ubuntu18.04 aarch64
+    name: Build on ubuntu22.04 aarch64
+    runs-on: ubuntu-22.04
+    timeout-minutes: 720
 
     steps:
-      - uses: actions/checkout@v2.1.0
-      - uses: uraimo/run-on-arch-action@v2.1.1
+      - uses: actions/checkout@v3.5.3
+      - uses: uraimo/run-on-arch-action@v2.5.0
         name: Build and run tests on embedded platforms
         with:
           arch: aarch64
-          distro: ubuntu18.04
+          distro: ubuntu22.04
 
           # Not required, but speeds up builds
           githubToken: ${{ github.token }}
@@ -43,4 +45,6 @@ jobs:
             chmod 755 /usr/bin/bazel
 
           run: |
-            cd example && bazel build "@pcl//..." --verbose_failures --show_progress_rate_limit=10
+            # Only run small tests because the enumlated environment is super slow, so large tests
+            # would timeout and fail.
+            cd example && bazel test "@pcl//..." --verbose_failures --show_progress_rate_limit=10 --test_size_filters="small"
