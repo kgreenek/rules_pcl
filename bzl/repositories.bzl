@@ -30,14 +30,13 @@ def pcl_repositories():
         urls = ["https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz"],
     )
 
-    # Latest commit as of April 6, 2019
     maybe(
         http_archive,
         name = "flann",
         build_file = "@rules_pcl//third_party:flann.BUILD",
-        sha256 = "9080a91be5759a0b4ef41f62e58896a714ec85d37c2567341a0503039655b1eb",
-        strip_prefix = "flann-1d04523268c388dabf1c0865d69e1b638c8c7d9d",
-        urls = ["https://github.com/flann-lib/flann/archive/1d04523268c388dabf1c0865d69e1b638c8c7d9d.tar.gz"],
+        sha256 = "e26829bb0017f317d9cc45ab83ddcb8b16d75ada1ae07157006c1e7d601c8824",
+        strip_prefix = "flann-1.9.2",
+        urls = ["https://github.com/flann-lib/flann/archive/refs/tags/1.9.2.tar.gz"],
     )
 
     maybe(
