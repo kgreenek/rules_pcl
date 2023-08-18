@@ -2,7 +2,7 @@ licenses(["notice"])  # BSD 3-Clause
 
 # Do not support cuda for now.
 FLANN_CUDA_HDRS = [
-    "cpp/flann/algorithms/all_indices.h",
+    "cpp/flann/algorithms/kdtree_cuda_3d_index.h",
     "cpp/flann/algorithms/kdtree_cuda_builder.h",
     "cpp/flann/util/cutil_math.h",
 ]
@@ -19,7 +19,10 @@ cc_library(
         ],
         exclude = FLANN_CUDA_HDRS,
     ),
-    includes = ["src/cpp"],
+    strip_include_prefix = "src/cpp",
     visibility = ["//visibility:public"],
-    deps = ["@lz4"],
+    deps = [
+        "@lz4",
+        "@lz4//:lz4_hc",
+    ],
 )
