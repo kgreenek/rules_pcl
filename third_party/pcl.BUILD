@@ -423,7 +423,6 @@ pcl_library(
         "@boost//:current_function",
         "@boost//:dynamic_bitset",
         "@eigen",
-        "@qhull//:libqhull",
         "@qhull//:libqhull_r",
     ],
 )
@@ -1634,4 +1633,90 @@ cc_test(
         ":search",
         ":test",
     ],
+)
+
+####################################################################################################
+# surface tests
+####################################################################################################
+cc_library(
+    name = "surface_test_common",
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":io",
+        ":surface",
+        ":features",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "surface_test_marching_cubes",
+    size = "large",
+    srcs = ["test/surface/test_marching_cubes.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    deps = [":surface_test_common"],
+)
+
+cc_test(
+    name = "surface_test_moving_least_squares",
+    size = "small",
+    srcs = ["test/surface/test_moving_least_squares.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    deps = [":surface_test_common"],
+)
+
+cc_test(
+    name = "surface_test_gp3",
+    size = "small",
+    srcs = ["test/surface/test_gp3.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    deps = [":surface_test_common"],
+)
+
+cc_test(
+    name = "surface_test_organized_fast_mesh",
+    size = "small",
+    srcs = ["test/surface/test_organized_fast_mesh.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    deps = [":surface_test_common"],
+)
+
+cc_test(
+    name = "surface_test_grid_projection",
+    size = "large",
+    srcs = ["test/surface/test_grid_projection.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    deps = [":surface_test_common"],
+)
+
+cc_test(
+    name = "surface_test_ear_clipping",
+    size = "small",
+    srcs = ["test/surface/test_ear_clipping.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    deps = [":surface_test_common"],
+)
+
+cc_test(
+    name = "surface_test_poisson",
+    size = "small",
+    srcs = ["test/surface/test_poisson.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    deps = [":surface_test_common"],
+)
+
+cc_test(
+    name = "surface_test_convex_hull",
+    size = "large",
+    srcs = ["test/surface/test_convex_hull.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    deps = [":surface_test_common"],
+)
+
+cc_test(
+    name = "surface_test_concave_hull",
+    size = "small",
+    srcs = ["test/surface/test_concave_hull.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    deps = [":surface_test_common"],
 )
