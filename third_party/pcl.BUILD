@@ -1399,7 +1399,7 @@ cc_test(
 
 cc_test(
     name = "features_test_ii_normals",
-    size = "small",
+    size = "medium",
     srcs = ["test/features/test_ii_normals.cpp"],
     args = ["../pcl/test/table_scene_mug_stereo_textured.pcd"],
     data = ["test/table_scene_mug_stereo_textured.pcd"],

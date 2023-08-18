@@ -31,7 +31,8 @@ MEDIUM_TESTS = {
 }
 LARGE_TESTS = {
     "common": ["test_eigen"],
-    "features": ["test_pfh_estimation", "test_rops_estimation"],
+    "features":
+    ["test_ii_normals", "test_pfh_estimation", "test_rops_estimation"],
     # NOTE: The below tests only take a long time when running in CI's aarch64 emulated environment.
     "filters": ["test_crop_hull", "test_filters_bilateral"],
     "octree": ["test_test_octree"],
