@@ -844,8 +844,6 @@ cc_binary(
 
 ####################################################################################################
 # TESTS - All the fules below are generated using the gen_test_targests.py script.
-# NOTE: Any tests that require passing an argument to the command are excluded. So these shouldn't
-# be considered thorough tests, only a sanity check.
 ####################################################################################################
 
 ####################################################################################################
@@ -1126,6 +1124,18 @@ cc_test(
     ],
 )
 
+cc_test(
+    name = "common_test_centroid",
+    size = "small",
+    srcs = ["test/common/test_centroid.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":io",
+        ":test",
+    ],
+)
+
 ####################################################################################################
 # features tests
 ####################################################################################################
@@ -1160,6 +1170,223 @@ cc_test(
 )
 
 cc_test(
+    name = "features_test_base_feature",
+    size = "small",
+    srcs = ["test/features/test_base_feature.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_cppf_estimation",
+    size = "small",
+    srcs = ["test/features/test_cppf_estimation.cpp"],
+    args = ["../pcl/test/colored_cloud.pcd"],
+    data = ["test/colored_cloud.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_normal_estimation",
+    size = "small",
+    srcs = ["test/features/test_normal_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_pfh_estimation",
+    size = "large",
+    srcs = ["test/features/test_pfh_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_cvfh_estimation",
+    size = "small",
+    srcs = ["test/features/test_cvfh_estimation.cpp"],
+    args = [
+        "../pcl/test/bun0.pcd",
+        "../pcl/test/milk.pcd",
+    ],
+    data = [
+        "test/bun0.pcd",
+        "test/milk.pcd",
+    ],
+    deps = [
+        ":features",
+        ":filters",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_ppf_estimation",
+    size = "small",
+    srcs = ["test/features/test_ppf_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_shot_estimation",
+    size = "small",
+    srcs = ["test/features/test_shot_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_boundary_estimation",
+    size = "small",
+    srcs = ["test/features/test_boundary_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_curvatures_estimation",
+    size = "small",
+    srcs = ["test/features/test_curvatures_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_spin_estimation",
+    size = "small",
+    srcs = ["test/features/test_spin_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_rsd_estimation",
+    size = "small",
+    srcs = ["test/features/test_rsd_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":kdtree",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_grsd_estimation",
+    size = "small",
+    srcs = ["test/features/test_grsd_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":kdtree",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_invariants_estimation",
+    size = "small",
+    srcs = ["test/features/test_invariants_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_board_estimation",
+    size = "small",
+    srcs = ["test/features/test_board_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_flare_estimation",
+    size = "small",
+    srcs = ["test/features/test_flare_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_shot_lrf_estimation",
+    size = "small",
+    srcs = ["test/features/test_shot_lrf_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
     name = "features_test_narf",
     size = "small",
     srcs = ["test/features/test_narf.cpp"],
@@ -1171,12 +1398,98 @@ cc_test(
 )
 
 cc_test(
+    name = "features_test_ii_normals",
+    size = "small",
+    srcs = ["test/features/test_ii_normals.cpp"],
+    args = ["../pcl/test/table_scene_mug_stereo_textured.pcd"],
+    data = ["test/table_scene_mug_stereo_textured.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_moment_of_inertia_estimation",
+    size = "small",
+    srcs = ["test/features/test_moment_of_inertia_estimation.cpp"],
+    args = ["../pcl/test/lamppost.pcd"],
+    data = ["test/lamppost.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_rops_estimation",
+    size = "large",
+    srcs = ["test/features/test_rops_estimation.cpp"],
+    args = [
+        "../pcl/test/rops_cloud.pcd",
+        "../pcl/test/rops_indices.txt",
+        "../pcl/test/rops_triangles.txt",
+    ],
+    data = [
+        "test/rops_cloud.pcd",
+        "test/rops_indices.txt",
+        "test/rops_triangles.txt",
+    ],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_gasd_estimation",
+    size = "small",
+    srcs = ["test/features/test_gasd_estimation.cpp"],
+    args = ["../pcl/test/bun0.pcd"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
     name = "features_test_organized_edge_detection",
     size = "small",
     srcs = ["test/features/test_organized_edge_detection.cpp"],
     deps = [
         ":features",
         ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "features_test_brisk",
+    size = "small",
+    srcs = ["test/features/test_brisk.cpp"],
+    args = [
+        "../pcl/test/brisk_descriptors_gt.pcd",
+        "../pcl/test/brisk_image_gt.pcd",
+        "../pcl/test/brisk_keypoints_gt.pcd",
+    ],
+    data = [
+        "test/brisk_descriptors_gt.pcd",
+        "test/brisk_image_gt.pcd",
+        "test/brisk_keypoints_gt.pcd",
+    ],
+    deps = [
+        ":common",
+        ":features",
+        ":filters",
+        ":io",
+        ":kdtree",
+        ":keypoints",
+        ":search",
         ":test",
     ],
 )
@@ -1242,6 +1555,19 @@ cc_test(
 )
 
 cc_test(
+    name = "filters_test_farthest_point_sampling",
+    size = "small",
+    srcs = ["test/filters/test_farthest_point_sampling.cpp"],
+    args = ["../pcl/test/bunny.pcd"],
+    data = ["test/bunny.pcd"],
+    deps = [
+        ":filters",
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
     name = "filters_test_convolution",
     size = "small",
     srcs = ["test/filters/test_convolution.cpp"],
@@ -1257,6 +1583,59 @@ cc_test(
     srcs = ["test/filters/test_crop_hull.cpp"],
     deps = [
         ":filters",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "filters_test_filters_bilateral",
+    size = "large",
+    srcs = ["test/filters/test_bilateral.cpp"],
+    args = ["../pcl/test/milk_cartoon_all_small_clorox.pcd"],
+    data = ["test/milk_cartoon_all_small_clorox.pcd"],
+    deps = [
+        ":filters",
+        ":io",
+        ":kdtree",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "filters_test_model_outlier_removal",
+    size = "small",
+    srcs = ["test/filters/test_model_outlier_removal.cpp"],
+    args = ["../pcl/test/milk_cartoon_all_small_clorox.pcd"],
+    data = ["test/milk_cartoon_all_small_clorox.pcd"],
+    deps = [
+        ":features",
+        ":filters",
+        ":io",
+        ":kdtree",
+        ":sample_consensus",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "filters_test_filters",
+    size = "small",
+    srcs = ["test/filters/test_filters.cpp"],
+    args = [
+        "../pcl/test/bun0.pcd",
+        "../pcl/test/milk_cartoon_all_small_clorox.pcd",
+    ],
+    data = [
+        "test/bun0.pcd",
+        "test/milk_cartoon_all_small_clorox.pcd",
+    ],
+    deps = [
+        ":features",
+        ":filters",
+        ":io",
+        ":kdtree",
+        ":sample_consensus",
+        ":segmentation",
         ":test",
     ],
 )
@@ -1458,6 +1837,18 @@ cc_test(
 )
 
 cc_test(
+    name = "io_test_grabbers",
+    size = "small",
+    srcs = ["test/io/test_grabbers.cpp"],
+    args = ["../pcl/test/grabber_sequences"],
+    data = ["test/grabber_sequences"],
+    deps = [
+        ":io",
+        ":test",
+    ],
+)
+
+cc_test(
     name = "io_test_ply_io",
     size = "small",
     srcs = ["test/io/test_ply_io.cpp"],
@@ -1484,6 +1875,20 @@ cc_test(
     deps = [
         ":common",
         ":io",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "io_test_octree_compression",
+    size = "small",
+    srcs = ["test/io/test_octree_compression.cpp"],
+    args = ["../pcl/test/milk_color.pcd"],
+    data = ["test/milk_color.pcd"],
+    deps = [
+        ":common",
+        ":io",
+        ":octree",
         ":test",
     ],
 )
@@ -1552,9 +1957,172 @@ cc_test(
     ],
 )
 
+cc_test(
+    name = "registration_test_registration",
+    size = "small",
+    srcs = ["test/registration/test_registration.cpp"],
+    args = [
+        "../pcl/test/bun0.pcd",
+        "../pcl/test/bun4.pcd",
+        "../pcl/test/milk_color.pcd",
+    ],
+    data = [
+        "test/bun0.pcd",
+        "test/bun4.pcd",
+        "test/milk_color.pcd",
+    ],
+    deps = [
+        ":features",
+        ":io",
+        ":kdtree",
+        ":registration",
+        ":search",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "registration_test_ndt",
+    size = "small",
+    srcs = ["test/registration/test_ndt.cpp"],
+    args = [
+        "../pcl/test/bun0.pcd",
+        "../pcl/test/bun4.pcd",
+    ],
+    data = [
+        "test/bun0.pcd",
+        "test/bun4.pcd",
+    ],
+    deps = [
+        ":io",
+        ":registration",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "registration_test_sac_ia",
+    size = "small",
+    srcs = ["test/registration/test_sac_ia.cpp"],
+    args = [
+        "../pcl/test/bun0.pcd",
+        "../pcl/test/bun4.pcd",
+    ],
+    data = [
+        "test/bun0.pcd",
+        "test/bun4.pcd",
+    ],
+    deps = [
+        ":io",
+        ":registration",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "registration_test_registration_api",
+    size = "small",
+    srcs = [
+        "test/registration/test_registration_api.cpp",
+        "test/registration/test_registration_api_data.h",
+    ],
+    args = [
+        "../pcl/test/bun0.pcd",
+        "../pcl/test/bun4.pcd",
+    ],
+    data = [
+        "test/bun0.pcd",
+        "test/bun4.pcd",
+    ],
+    deps = [
+        ":features",
+        ":io",
+        ":kdtree",
+        ":registration",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "registration_test_correspondence_rejectors",
+    size = "small",
+    srcs = ["test/registration/test_correspondence_rejectors.cpp"],
+    args = ["../pcl/test/bunny.pcd"],
+    data = ["test/bunny.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":registration",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "registration_test_fpcs_ia",
+    size = "small",
+    srcs = [
+        "test/registration/test_fpcs_ia.cpp",
+        "test/registration/test_fpcs_ia_data.h",
+    ],
+    args = [
+        "../pcl/test/bun0.pcd",
+        "../pcl/test/bun4.pcd",
+    ],
+    data = [
+        "test/bun0.pcd",
+        "test/bun4.pcd",
+    ],
+    deps = [
+        ":features",
+        ":io",
+        ":kdtree",
+        ":registration",
+        ":search",
+        ":test",
+    ],
+)
+
+cc_test(
+    name = "registration_test_kfpcs_ia",
+    size = "small",
+    srcs = [
+        "test/registration/test_kfpcs_ia.cpp",
+        "test/registration/test_kfpcs_ia_data.h",
+    ],
+    args = [
+        "../pcl/test/office1_keypoints.pcd",
+        "../pcl/test/office2_keypoints.pcd",
+    ],
+    data = [
+        "test/office1_keypoints.pcd",
+        "test/office2_keypoints.pcd",
+    ],
+    deps = [
+        ":features",
+        ":io",
+        ":kdtree",
+        ":registration",
+        ":search",
+        ":test",
+    ],
+)
+
 ####################################################################################################
 # sample_consensus tests
 ####################################################################################################
+cc_test(
+    name = "sample_consensus_test_sample_consensus_plane_models",
+    size = "small",
+    srcs = ["test/sample_consensus/test_sample_consensus_plane_models.cpp"],
+    args = ["../pcl/test/sac_plane_test.pcd"],
+    data = ["test/sac_plane_test.pcd"],
+    deps = [
+        ":io",
+        ":sample_consensus",
+        ":test",
+    ],
+)
+
 cc_test(
     name = "sample_consensus_test_sample_consensus_quadric_models",
     size = "small",
@@ -1635,26 +2203,57 @@ cc_test(
     ],
 )
 
-####################################################################################################
-# surface tests
-####################################################################################################
-cc_library(
-    name = "surface_test_common",
-    data = ["test/bun0.pcd"],
+cc_test(
+    name = "search_test_search",
+    size = "large",
+    srcs = [
+        "test/search/precise_distances.h",
+        "test/search/test_search.cpp",
+    ],
+    args = ["../pcl/test/table_scene_mug_stereo_textured.pcd"],
+    data = ["test/table_scene_mug_stereo_textured.pcd"],
     deps = [
         ":io",
-        ":surface",
-        ":features",
+        ":kdtree",
+        ":search",
         ":test",
     ],
 )
 
 cc_test(
+    name = "search_test_organized_index",
+    size = "small",
+    srcs = [
+        "test/search/precise_distances.h",
+        "test/search/test_organized_index.cpp",
+    ],
+    args = ["../pcl/test/office1.pcd"],
+    data = ["test/office1.pcd"],
+    deps = [
+        ":common",
+        ":io",
+        ":search",
+        ":test",
+    ],
+)
+
+####################################################################################################
+# surface tests
+####################################################################################################
+cc_test(
     name = "surface_test_marching_cubes",
     size = "large",
     srcs = ["test/surface/test_marching_cubes.cpp"],
     args = ["../pcl/test/bun0.pcd"],
-    deps = [":surface_test_common"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":kdtree",
+        ":search",
+        ":surface",
+        ":test",
+    ],
 )
 
 cc_test(
@@ -1662,7 +2261,15 @@ cc_test(
     size = "small",
     srcs = ["test/surface/test_moving_least_squares.cpp"],
     args = ["../pcl/test/bun0.pcd"],
-    deps = [":surface_test_common"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":kdtree",
+        ":search",
+        ":surface",
+        ":test",
+    ],
 )
 
 cc_test(
@@ -1670,7 +2277,15 @@ cc_test(
     size = "small",
     srcs = ["test/surface/test_gp3.cpp"],
     args = ["../pcl/test/bun0.pcd"],
-    deps = [":surface_test_common"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":kdtree",
+        ":search",
+        ":surface",
+        ":test",
+    ],
 )
 
 cc_test(
@@ -1678,7 +2293,15 @@ cc_test(
     size = "small",
     srcs = ["test/surface/test_organized_fast_mesh.cpp"],
     args = ["../pcl/test/bun0.pcd"],
-    deps = [":surface_test_common"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":kdtree",
+        ":search",
+        ":surface",
+        ":test",
+    ],
 )
 
 cc_test(
@@ -1686,7 +2309,15 @@ cc_test(
     size = "large",
     srcs = ["test/surface/test_grid_projection.cpp"],
     args = ["../pcl/test/bun0.pcd"],
-    deps = [":surface_test_common"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":kdtree",
+        ":search",
+        ":surface",
+        ":test",
+    ],
 )
 
 cc_test(
@@ -1694,7 +2325,15 @@ cc_test(
     size = "small",
     srcs = ["test/surface/test_ear_clipping.cpp"],
     args = ["../pcl/test/bun0.pcd"],
-    deps = [":surface_test_common"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":kdtree",
+        ":search",
+        ":surface",
+        ":test",
+    ],
 )
 
 cc_test(
@@ -1702,7 +2341,14 @@ cc_test(
     size = "small",
     srcs = ["test/surface/test_poisson.cpp"],
     args = ["../pcl/test/bun0.pcd"],
-    deps = [":surface_test_common"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":io",
+        ":kdtree",
+        ":surface",
+        ":test",
+    ],
 )
 
 cc_test(
@@ -1710,7 +2356,16 @@ cc_test(
     size = "large",
     srcs = ["test/surface/test_convex_hull.cpp"],
     args = ["../pcl/test/bun0.pcd"],
-    deps = [":surface_test_common"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":filters",
+        ":io",
+        ":kdtree",
+        ":search",
+        ":surface",
+        ":test",
+    ],
 )
 
 cc_test(
@@ -1718,5 +2373,15 @@ cc_test(
     size = "small",
     srcs = ["test/surface/test_concave_hull.cpp"],
     args = ["../pcl/test/bun0.pcd"],
-    deps = [":surface_test_common"],
+    data = ["test/bun0.pcd"],
+    deps = [
+        ":features",
+        ":filters",
+        ":io",
+        ":kdtree",
+        ":sample_consensus",
+        ":search",
+        ":surface",
+        ":test",
+    ],
 )
