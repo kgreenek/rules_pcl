@@ -45,6 +45,7 @@ jobs:
             chmod 755 /usr/bin/bazel
 
           run: |
-            # Skip running tests because the emulated environment is super slow, so many tests would
-            # timeout and fail.
-            cd example && bazel build "@pcl//..." --verbose_failures --show_progress_rate_limit=10
+            # Only test common lib because the emulated environment is super slow, so running the
+            # full test suite would timeout and fail after 6 hours.
+            cd example
+            bazel query "kind(cc_.*, @pcl//:*)" | grep common | xargs bazel test --verbose_failures --show_progress_rate_limit=10
