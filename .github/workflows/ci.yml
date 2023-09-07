@@ -45,7 +45,7 @@ jobs:
             chmod 755 /usr/bin/bazel
 
           run: |
-            # Only test common lib because the emulated environment is super slow, so running the
-            # full test suite would timeout and fail after 6 hours.
+            # Only run common lib small tests because the emulated environment is super slow, so
+            # running the full test suite would timeout after many hours.
             cd example
-            bazel query "kind(cc_.*, @pcl//:*)" | grep common | xargs bazel test --verbose_failures --show_progress_rate_limit=10
+            bazel query "kind(cc_.*, @pcl//:*)" | grep common | xargs bazel test --verbose_failures --show_progress_rate_limit=10 --test_size_filters="small"
