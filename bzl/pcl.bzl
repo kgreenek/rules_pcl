@@ -132,7 +132,7 @@ gen_pcl_config = rule(
         "no_precompile": attr.bool(default = False),
         "only_core_point_types": attr.bool(default = False),
         "version_major": attr.string(default = "1"),
-        "version_minor": attr.string(default = "9"),
+        "version_minor": attr.string(default = "13"),
         "version_patch": attr.string(default = "1"),
         "dev_version": attr.bool(default = False),
         # Compiler config settings.
