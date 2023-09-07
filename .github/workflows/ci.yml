@@ -45,6 +45,7 @@ jobs:
             chmod 755 /usr/bin/bazel
 
           run: |
-            # Only run small tests because the enumlated environment is super slow, so large tests
-            # would timeout and fail.
-            cd example && bazel test "@pcl//..." --verbose_failures --show_progress_rate_limit=10 --test_size_filters="small"
+            # Only run common lib small tests because the emulated environment is super slow, so
+            # running the full test suite would timeout after many hours.
+            cd example
+            bazel query "kind(cc_.*, @pcl//:*)" | grep common | xargs bazel test --verbose_failures --show_progress_rate_limit=10 --test_size_filters="small"
