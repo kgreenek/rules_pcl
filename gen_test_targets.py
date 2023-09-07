@@ -25,7 +25,7 @@ EXCLUDE_TESTS = {
 
 MEDIUM_TESTS = {
     "io": ["test_io"],
-    "registration": ["test_registration"],
+    "registration": ["test_kfpcs_ia", "test_registration"],
     "surface":
     ["test_convex_hull", "test_grid_projection", "test_marching_cubes"],
 }

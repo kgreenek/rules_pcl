@@ -2084,7 +2084,7 @@ cc_test(
 
 cc_test(
     name = "registration_test_kfpcs_ia",
-    size = "small",
+    size = "medium",
     srcs = [
         "test/registration/test_kfpcs_ia.cpp",
         "test/registration/test_kfpcs_ia_data.h",
