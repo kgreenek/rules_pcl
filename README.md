@@ -5,16 +5,16 @@ Rules for building [PCL](https://github.com/PointCloudLibrary/pcl) with bazel.
 
 ## How to use
 
-In your WORKSPACE file:
+In your WORKSPACE.bazel file:
 
 ```
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "rules_pcl",
-    url = "https://github.com/kgreenek/rules_pcl/archive/refs/tags/pcl-1.13.1-v0.tar.gz",
-    sha256 = "4af5e3bd2d17ba1431344904285749cbfc2adc780c08e75ddd7b6c8702af5982",
-    strip_prefix = "rules_pcl-pcl-1.13.1-v0",
+    url = "https://github.com/kgreenek/rules_pcl/archive/refs/tags/pcl-1.13.1-v1.tar.gz",
+    sha256 = "06d2ed755fbf9ddd30f8bb3ed73f23ee6155d52e742d4e4a278c9458e9a3e17b",
+    strip_prefix = "rules_pcl-pcl-1.13.1-v1",
 )
 
 load("@rules_pcl//bzl:repositories.bzl", "pcl_repositories")
