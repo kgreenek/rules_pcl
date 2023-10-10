@@ -1,9 +1,3 @@
-load("@rules_pcl//bzl:pcl.bzl", "pcl_config")
-
-# Example on how to customize the configuration:
-# pcl_config(have_mm_malloc=False)
-pcl_config()
-
 cc_binary(
     name = "example",
     srcs = ["main.cc"],
