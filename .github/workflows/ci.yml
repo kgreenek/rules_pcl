@@ -6,6 +6,10 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 720
 
+    strategy:
+      matrix:
+        enable_bzlmod: [true, false]
+
     steps:
       - uses: actions/checkout@v3.5.3
       - run: |
@@ -15,6 +19,11 @@ jobs:
 
       - run: |
           cd example && /tmp/bazel test "@pcl//..." --verbose_failures --show_progress_rate_limit=10
+        if: matrix.enable_bzlmod == 'false'
+      
+      - run: |
+          cd example && /tmp/bazel test "@pcl//..." --verbose_failures --show_progress_rate_limit=10 --config=bzlmod
+        if: matrix.enable_bzlmod == 'true'
 
   build_aarch64:
     name: Build on ubuntu22.04 aarch64

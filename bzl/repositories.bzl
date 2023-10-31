@@ -1,6 +1,33 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
+def pcl_repositories_non_module():
+    """Depencies that haven't been converted to bzlmodules."""
+
+    http_archive(
+        name = "pcl",
+        sha256 = "8ab98a9db371d822de0859084a375a74bdc7f31c96d674147710cf4101b79621",
+        build_file = "@rules_pcl//third_party:pcl.bzlmod.BUILD",
+        strip_prefix = "pcl-pcl-1.13.1",
+        urls = ["https://github.com/PointCloudLibrary/pcl/archive/refs/tags/pcl-1.13.1.tar.gz"],
+    )
+
+    http_archive(
+        name = "flann",
+        build_file = "@rules_pcl//third_party:flann.BUILD",
+        sha256 = "e26829bb0017f317d9cc45ab83ddcb8b16d75ada1ae07157006c1e7d601c8824",
+        strip_prefix = "flann-1.9.2",
+        urls = ["https://github.com/flann-lib/flann/archive/refs/tags/1.9.2.tar.gz"],
+    )
+
+    http_archive(
+        name = "qhull",
+        build_file = "@rules_pcl//third_party:qhull.BUILD",
+        sha256 = "cf7235b76244595a86b9407b906e3259502b744528318f2178155e5899d6cf9f",
+        strip_prefix = "qhull-2019.1",
+        urls = ["https://github.com/qhull/qhull/archive/2019.1.tar.gz"],
+    )
+
 def pcl_repositories():
     # Latest commit as of: Dec 23, 2023
     # NOTE: We cannot update beyond this commit without breaking aarch64 support due to lzma.

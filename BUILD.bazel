@@ -1,0 +1,40 @@
+load("@bazel_skylib//rules:common_settings.bzl", "bool_flag", "string_flag")
+load("@rules_pcl//bzl:pcl.bzl", "pcl_config")
+
+string_flag(
+    name = "build_type",
+    build_setting_default = "RelWithDebInfo",
+    values = [
+        "Debug",
+        "Release",
+        "RelWithDebInfo",
+        "MinSizeRel",
+    ],
+)
+
+string_flag(
+    name = "log_level",
+    build_setting_default = "Info",
+    values = [
+        "Always",
+        "Error",
+        "Warn",
+        "Info",
+        "Debug",
+        "Verbose",
+    ],
+)
+
+bool_flag(
+    name = "no_precompile",
+    build_setting_default = False,
+)
+
+bool_flag(
+    name = "only_core_point_types",
+    build_setting_default = False,
+)
+
+# Example on how to customize the configuration:
+# pcl_config(have_mm_malloc=False)
+pcl_config()

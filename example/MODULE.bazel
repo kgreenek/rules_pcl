@@ -1,0 +1,8 @@
+module(name = "rules_pcl_example")
+
+bazel_dep(name = "rules_pcl", version = "0.0.0", dev_dependency = True)
+
+local_path_override(module_name = "rules_pcl", path = "..")
+
+non_module_deps = use_extension("@rules_pcl//bzl:extensions.bzl", "non_module_deps")
+use_repo(non_module_deps, "pcl")

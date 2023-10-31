@@ -1,3 +1,5 @@
+load("@bazel_skylib//rules:common_settings.bzl", "BuildSettingInfo")
+
 _PCL_CONFIG_H_TEMPLATE = "@pcl//:pcl_config.h.in"
 
 _PCL_AARCH64_COMPILER_CONFIG = {
@@ -56,6 +58,11 @@ def _log_level_substitutions(log_level):
     )
 
 def _gen_pcl_config_impl(ctx):
+    build_type = ctx.attr.build_type[BuildSettingInfo].value
+    log_level = ctx.attr.log_level[BuildSettingInfo].value
+    no_precompile = ctx.attr.no_precompile[BuildSettingInfo].value
+    only_core_point_types = ctx.attr.only_core_point_types[BuildSettingInfo].value
+
     version_pretty_str = "{}.{}.{}{}".format(
         ctx.attr.version_major,
         ctx.attr.version_minor,
@@ -64,7 +71,7 @@ def _gen_pcl_config_impl(ctx):
     )
     dev_version_str = "1" if ctx.attr.dev_version else "0"
     substitutions = {
-        "@CMAKE_BUILD_TYPE@": ctx.attr.build_type,
+        "@CMAKE_BUILD_TYPE@": build_type,
         "${PCL_VERSION_MAJOR}": ctx.attr.version_major,
         "${PCL_VERSION_MINOR}": ctx.attr.version_minor,
         "${PCL_VERSION_PATCH}": ctx.attr.version_patch,
@@ -76,11 +83,11 @@ def _gen_pcl_config_impl(ctx):
         # TODO(kgreenek): Will this ever need to be different here?
         "${VTK_RENDERING_BACKEND_OPENGL_VERSION}": "1",
     }
-    substitutions.update(_log_level_substitutions(ctx.attr.log_level))
+    substitutions.update(_log_level_substitutions(log_level))
     substitutions.update(
         _cmakedefine_substitutions(
-            ("PCL_NO_PRECOMPILE", ctx.attr.no_precompile),
-            ("PCL_ONLY_CORE_POINT_TYPES", ctx.attr.no_precompile),
+            ("PCL_NO_PRECOMPILE", no_precompile),
+            ("PCL_ONLY_CORE_POINT_TYPES", only_core_point_types),
         ),
     )
     substitutions.update(
@@ -127,10 +134,10 @@ def _gen_pcl_config_impl(ctx):
 gen_pcl_config = rule(
     implementation = _gen_pcl_config_impl,
     attrs = {
-        "build_type": attr.string(default = "RelWithDebInfo"),
-        "log_level": attr.string(default = "Info"),
-        "no_precompile": attr.bool(default = False),
-        "only_core_point_types": attr.bool(default = False),
+        "build_type": attr.label(default = "@rules_pcl//:build_type"),
+        "log_level": attr.label(default = "@rules_pcl//:log_level"),
+        "no_precompile": attr.label(default = "@rules_pcl//:no_precompile"),
+        "only_core_point_types": attr.label(default = "@rules_pcl//:only_core_point_types"),
         "version_major": attr.string(default = "1"),
         "version_minor": attr.string(default = "13"),
         "version_patch": attr.string(default = "1"),
